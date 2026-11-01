@@ -1246,6 +1246,32 @@ a.contact-card:hover {
     .contact-cards li {
         width: 100%;
     }
+
+    /* Filters stay on one row; the bleed and the fade show that more chips follow */
+    .section-head-projects .filters {
+        --filters-gutter: 24px;
+        flex-wrap: nowrap;
+        flex-basis: auto;
+        width: calc(100% + var(--filters-gutter) * 2);
+        margin: 0 calc(var(--filters-gutter) * -1);
+        padding: 0 40px 0 var(--filters-gutter);
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scroll-padding: 0 40px 0 var(--filters-gutter);
+        scrollbar-width: none;
+        -webkit-mask-image: linear-gradient(to left, transparent 0, #000 40px);
+        mask-image: linear-gradient(to left, transparent 0, #000 40px);
+    }
+
+    .section-head-projects .filters::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filter {
+        flex-shrink: 0;
+        min-height: 44px;
+        white-space: nowrap;
+    }
 }
 
 @media (max-width: 640px) {
@@ -1256,19 +1282,134 @@ a.contact-card:hover {
     .timeline {
         --timeline-visible: 1;
     }
+
+    .project-body h3 {
+        font-size: 1.2rem;
+        line-height: 1.3;
+    }
+
+    .project-body > p {
+        font-size: 0.95rem;
+    }
+
+    .tags li {
+        padding: 3px 10px;
+        font-size: 0.8rem;
+    }
+
+    .project-foot a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        min-height: 44px;
+        padding: 0;
+        font-size: 0.95rem;
+    }
+
+    .project-foot {
+        flex-wrap: wrap;
+        gap: 0 12px;
+    }
+
+    .industry-badge {
+        font-size: 0.78rem;
+        line-height: 1.35;
+        white-space: nowrap;
+    }
+
+    /* Arrows move under the track and share a row with the dots, so cards get the full width */
+    .carousel {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 4px 0;
+    }
+
+    .carousel-track,
+    .timeline {
+        flex: 0 0 100%;
+        order: -1;
+    }
+
+    .carousel + .dots {
+        position: relative;
+        align-items: center;
+        min-height: 44px;
+        margin: -44px 52px 0;
+    }
+
+    .timeline-card {
+        padding: 20px;
+        font-size: 0.95rem;
+    }
+
+    .timeline-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .timeline-place {
+        font-size: 0.875rem;
+    }
+
+    .job-title {
+        font-size: 0.82rem;
+    }
+
+    .timeline-marker {
+        height: 36px;
+    }
 }
 
 @media (max-width: 480px) {
     .hero-scene {
-        aspect-ratio: 1 / 1;
+        aspect-ratio: 5 / 4;
+    }
+
+    .hero-scene::after {
+        background: linear-gradient(to bottom, #f5f9ff 0, rgba(245, 249, 255, 0) 16%, rgba(255, 255, 255, 0) 97%, #ffffff 100%);
+    }
+
+    .hero-inner {
+        padding-top: 24px;
+        padding-bottom: 8px;
+    }
+
+    .hero-description {
+        margin-top: 12px;
+        font-size: 1rem;
+    }
+
+    .hero-buttons {
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .hero-buttons .btn {
+        flex: 1 1 auto;
+        padding: 10px 14px;
+    }
+
+    .hero-stats {
+        margin-top: 20px;
+    }
+
+    .section-head-projects .filters {
+        --filters-gutter: 16px;
+    }
+
+    .skill-card img,
+    .skill-card svg {
+        width: 72px;
+        height: 72px;
     }
 
     .exploring {
-        padding: 16px;
+        gap: 10px;
+        padding: 14px;
     }
 
     .exploring-description {
         font-size: 0.875rem;
+        line-height: 1.5;
     }
 
     .exploring-tags {
@@ -1276,9 +1417,9 @@ a.contact-card:hover {
     }
 
     .exploring-tags li {
-        gap: 6px;
-        padding: 4px 10px;
-        font-size: 0.75rem;
+        gap: 5px;
+        padding: 3px 8px;
+        font-size: 0.78rem;
     }
 
     .hero-stats {
@@ -1299,24 +1440,30 @@ a.contact-card:hover {
         gap: 8px;
     }
 
+    .nav-brand {
+        min-height: 44px;
+    }
+
+    .nav-menu {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
     .btn-cv {
-        min-height: 40px;
+        min-height: 44px;
         padding: 8px 14px;
         font-size: 0.85rem;
     }
 
-    .carousel {
-        gap: 4px;
-    }
-
-    .carousel-arrow {
-        width: 36px;
-        height: 36px;
+    /* Lines the hamburger's bars up with the page gutter */
+    .hamburger {
+        margin-right: -10px;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    html {
+    html,
+    .section-head-projects .filters {
         scroll-behavior: auto;
     }
 

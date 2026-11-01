@@ -118,6 +118,8 @@ filterButtons.forEach(button => {
         projectState.filter = button.dataset.filter;
         projectState.page = 0;
         renderProjects();
+        // On mobile the chip may be partly off-screen in the scrolling row
+        button.scrollIntoView({ block: 'nearest', inline: 'nearest' });
     });
 });
 
