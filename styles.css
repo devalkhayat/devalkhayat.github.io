@@ -33,7 +33,6 @@ body {
     line-height: 1.6;
     color: var(--text-primary);
     background-color: var(--bg-primary);
-    overflow-x: clip;
 }
 
 ul,
@@ -310,6 +309,10 @@ button {
     max-width: min(590px, 48vw);
 }
 
+.hero-avatar {
+    display: none;
+}
+
 .hero-greeting {
     display: inline-block;
     margin-bottom: 14px;
@@ -394,6 +397,10 @@ button {
 .hero-stats small {
     display: block;
     font-size: 0.75rem;
+}
+
+.hero-platforms {
+    display: none;
 }
 
 .contact-icon {
@@ -1360,17 +1367,65 @@ a.contact-card:hover {
 }
 
 @media (max-width: 480px) {
-    .hero-scene {
-        aspect-ratio: 5 / 4;
+    /* The portrait becomes a small circle above the name, so the scene isn't shown */
+    .hero {
+        min-height: 0;
     }
 
-    .hero-scene::after {
-        background: linear-gradient(to bottom, #f5f9ff 0, rgba(245, 249, 255, 0) 16%, rgba(255, 255, 255, 0) 97%, #ffffff 100%);
+    .hero-scene {
+        display: none;
+    }
+
+    .navbar .container,
+    .hero .container {
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
     .hero-inner {
         padding-top: 24px;
-        padding-bottom: 8px;
+        padding-bottom: 28px;
+    }
+
+    .hero-text {
+        container-type: inline-size;
+        text-align: center;
+    }
+
+    /* Crops the head from the composite: a 460px square at x 880, y 140 of the 1968px wide image */
+    .hero-avatar {
+        position: relative;
+        display: block;
+        width: 112px;
+        height: 112px;
+        margin: 0 auto 12px;
+        overflow: hidden;
+        border-radius: 50%;
+        background: var(--primary-soft);
+        box-shadow: 0 0 0 3px var(--bg-primary), 0 0 0 5px var(--line-color);
+    }
+
+    .hero-avatar img {
+        position: absolute;
+        top: -30.43%;
+        left: -191.3%;
+        width: 427.83%;
+        max-width: none;
+        height: auto;
+    }
+
+    .hero-greeting {
+        margin-bottom: 8px;
+    }
+
+    /* The name is about 10.2em wide. vw includes any scrollbar, so cqw caps it to the real text width */
+    .hero-name {
+        font-size: clamp(1.4rem, min(8.4vw, 9.6cqw), 2.25rem);
+        white-space: nowrap;
+    }
+
+    .hero-title {
+        font-size: clamp(1.05rem, 5.2vw, 1.35rem);
     }
 
     .hero-description {
@@ -1385,11 +1440,35 @@ a.contact-card:hover {
 
     .hero-buttons .btn {
         flex: 1 1 auto;
-        padding: 10px 14px;
+        gap: 8px;
+        padding: 10px;
+        font-size: 0.9rem;
     }
 
     .hero-stats {
         margin-top: 20px;
+    }
+
+    .hero-stats small {
+        display: none;
+    }
+
+    .hero-platforms {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+        max-width: 148px;
+        margin: 6px auto 0;
+    }
+
+    .hero-platforms span {
+        padding: 3px 4px;
+        border-radius: 999px;
+        background: var(--primary-soft);
+        color: var(--primary-dark);
+        font-size: 0.75rem;
+        font-weight: 500;
+        white-space: nowrap;
     }
 
     .section-head-projects .filters {
@@ -1424,7 +1503,7 @@ a.contact-card:hover {
 
     .hero-stats {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px 20px;
+        gap: 14px 12px;
     }
 
     .container {
@@ -1445,19 +1524,14 @@ a.contact-card:hover {
     }
 
     .nav-menu {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
     .btn-cv {
         min-height: 44px;
         padding: 8px 14px;
         font-size: 0.85rem;
-    }
-
-    /* Lines the hamburger's bars up with the page gutter */
-    .hamburger {
-        margin-right: -10px;
     }
 }
 
