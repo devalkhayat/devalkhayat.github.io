@@ -4,13 +4,14 @@ A modern, responsive static portfolio website showcasing professional experience
 
 ## Features
 
-- **Modern Design**: Clean and professional UI with gradient hero section
-- **Fully Responsive**: Works seamlessly on desktop, tablet, and mobile devices
-- **Smooth Animations**: Scroll-triggered animations for better user experience
-- **Interactive Navigation**: Fixed navbar with smooth scrolling to sections
+- **Light Design**: Minimal light-mode UI with a portrait hero
+- **Fully Responsive**: Works on desktop, tablet, and mobile devices
+- **Interactive Navigation**: Sticky navbar with smooth scrolling to sections
 - **Mobile Menu**: Hamburger menu for mobile devices
-- **Project Showcase**: Detailed project cards with technology stacks
-- **Contact Integration**: Quick access to email, LinkedIn, GitHub, and phone
+- **Project Showcase**: Filterable project cards with a View All option
+- **Skills Carousel**: Swipe, arrow, dot, and keyboard navigation
+- **Experience Timeline**: Horizontal timeline with an expandable full history
+- **Contact Integration**: Quick access to email, phone, LinkedIn, GitHub, and website
 
 ## File Structure
 
@@ -19,7 +20,8 @@ portfolio/
 ├── index.html      # Main HTML structure
 ├── styles.css      # All styling and responsive design
 ├── script.js       # Interactive functionality
-├── resume.pdf      # Resume file (add your resume here)
+├── docs/           # Downloadable CV
+├── images/         # Portrait, project screenshots, technology icons
 └── README.md       # This file
 ```
 
@@ -44,20 +46,16 @@ Then navigate to `http://localhost:8000` in your browser.
 
 ## Sections
 
-1. **Hero Section**: Introduction with name, title, and social links
-2. **About**: Professional summary and contact information
-3. **Experience**: Timeline of professional roles and projects
-4. **Skills**: Technical skills organized by category
-5. **Education**: Educational background
-6. **Languages**: Language proficiency
-7. **Resume Download**: Download resume section
-8. **Hire Me**: Call-to-action section
-9. **Contact**: Quick contact links
+1. **Hero**: Name, title, introduction, and key statistics
+2. **Selected Work**: Projects filterable by industry
+3. **My Main Technologies**: Skills carousel
+4. **Work Experience**: Horizontal timeline; the full view adds detailed history, skills, education, and languages
+5. **Get In Touch**: Contact details and social links
 
 ## Technologies Used
 
 - HTML5
-- CSS3 (with CSS Grid, Flexbox, and animations)
+- CSS3 (with CSS Grid, Flexbox, and scroll snap)
 - Vanilla JavaScript (for interactivity)
 - Google Fonts (Inter)
 

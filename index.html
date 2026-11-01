@@ -3,458 +3,591 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohammed Alkhayat - Mobile Developer</title>
+    <title>Mohammed Alkhayat - Mobile &amp; Full-Stack Developer</title>
+    <meta name="description" content="Mohammed Alkhayat is a Mobile &amp; Full-Stack Developer building Android, Flutter and .NET applications.">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <h2>MA</h2>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
+    <header class="navbar">
+        <nav class="container nav-inner" aria-label="Main">
+            <a href="#home" class="nav-brand">
+                <span class="nav-logo">MA</span>
+                <span class="nav-name">Mohammed Alkhayat</span>
+            </a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#resume">Resume</a></li>
-                <li><a href="#hire">Hire Me</a></li>
+                <li><a href="#experience">Experience</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <div class="hamburger">
+            <a href="docs/Mohammed_Alkhayat_CV_Mobile_Full-Stack_Developer.pdf" download="Mohammed_Alkhayat_Resume.pdf" class="btn btn-primary btn-cv">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Download CV
+            </a>
+            <button type="button" class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
-        </div>
-    </nav>
+            </button>
+        </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <span id="about" class="legacy-anchor"></span>
+            <div class="hero-scene">
+                <div class="hero-scene-inner">
+                    <img src="images/hero-composite.webp" alt="Mohammed Alkhayat smiling, wearing glasses and a white shirt, seated at a desk in an office" class="hero-composite" width="1968" height="1107">
+                </div>
+            </div>
+            <div class="container hero-inner">
                 <div class="hero-text">
-                    <p class="hero-greeting">Hello, I'm</p>
+                    <p class="hero-greeting"><span aria-hidden="true">👋</span> Hello, I'm</p>
                     <h1 class="hero-name">Mohammed Alkhayat</h1>
-                    <h2 class="hero-title">Mobile Developer</h2>
-                    <p class="hero-location">📍 Alexandria, Egypt</p>
-                    <p class="hero-description">Experienced Software Developer with 5+ years in the software industry, combining a solid foundation in backend development with expertise in mobile technologies.</p>
+                    <p class="hero-title"><span>Mobile &amp; Full-Stack</span> Developer</p>
+                    <p class="hero-description">I build scalable mobile and web applications with clean architecture, focusing on real-world solutions that make a difference.</p>
                     <div class="hero-buttons">
-                        <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                        <a href="#experience" class="btn btn-secondary">View Work</a>
-                        <a href="#resume" class="btn btn-resume">📄 Download Resume</a>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://github.com/devalkhayat" target="_blank" class="social-link">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                            </svg>
+                        <a href="#projects" class="btn btn-primary">
+                            View My Projects
+                            <span aria-hidden="true">&rarr;</span>
                         </a>
-                        <a href="https://www.linkedin.com/in/malkhayat" target="_blank" class="social-link">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                            </svg>
-                        </a>
-                        <a href="mailto:mz.alkhayat@hotmail.com" class="social-link">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <a href="#contact" class="btn btn-outline">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                 <polyline points="22,6 12,13 2,6"></polyline>
                             </svg>
+                            Contact Me
                         </a>
                     </div>
-                </div>
-                <div class="hero-image">
-                    <div class="image-container">
-                        <img src="images/photo.png" alt="Mohammed Alkhayat" class="profile-photo">
-                    </div>
+                    <ul class="hero-stats">
+                        <li><strong>9+</strong> Years Experience</li>
+                        <li><strong>20+</strong> Projects</li>
+                        <li><strong>Multiple</strong> Industries</li>
+                        <li><strong>4</strong> Platforms <small>Mobile &bull; Web &bull; Desktop &bull; Backend</small></li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section id="about" class="section about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <p class="about-text">
-                    Experienced Software Developer with 5+ years in the software industry, combining a solid foundation in backend development with expertise in mobile technologies. Proficient in Android development (Kotlin and Java), with a proven track record of delivering 6+ applications across real estate, booking, e-commerce, and management domains.
+        <!-- Selected Work Section -->
+        <section id="projects" class="section">
+            <div class="container">
+                <div class="section-head section-head-projects">
+                    <div>
+                        <p class="eyebrow">Featured Projects</p>
+                        <h2 class="section-title">Selected Work</h2>
+                    </div>
+                    <div class="filters" role="group" aria-label="Filter projects by industry">
+                        <button type="button" class="filter is-active" data-filter="all" aria-pressed="true">All Industries</button>
+                        <button type="button" class="filter" data-filter="real-estate" aria-pressed="false">Real Estate</button>
+                        <button type="button" class="filter" data-filter="e-commerce" aria-pressed="false">E-Commerce</button>
+                        <button type="button" class="filter" data-filter="food" aria-pressed="false">Food &amp; Restaurants</button>
+                        <button type="button" class="filter" data-filter="entertainment" aria-pressed="false">Entertainment</button>
+                        <button type="button" class="filter" data-filter="business" aria-pressed="false">Business Management</button>
+                        <button type="button" class="filter" data-filter="other" aria-pressed="false">Other</button>
+                    </div>
+                    <button type="button" class="btn-link" id="projects-toggle" aria-expanded="false">
+                        <span>View All Projects</span> <span aria-hidden="true">&rarr;</span>
+                    </button>
+                </div>
+
+                <div class="project-grid" id="project-grid" aria-live="polite">
+                    <article class="project-card" data-category="food">
+                        <div class="project-media">
+                            <img src="images/projects/ecomflow-merchant.webp" alt="EcomFlow Merchant app screens showing product catalog, menus and brands" width="800" height="450" loading="lazy">
+                            <span class="role-badge">Mobile &amp; Full-Stack</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>EcomFlow Merchant</h3>
+                            <p>App for brand owners and franchisees to manage brands, branches, menus, products and orders.</p>
+                            <ul class="tags"><li>Flutter</li><li>ASP.NET Core</li><li>SQL Server</li></ul>
+                            <div class="project-foot">
+                                <a href="https://play.google.com/store/apps/details?id=com.ecomflow.merchant" target="_blank" rel="noopener">View Project <span aria-hidden="true">&rarr;</span></a>
+                                <span class="industry-badge">Food &amp; Restaurants</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card" data-category="real-estate">
+                        <div class="project-media">
+                            <img src="images/projects/sales-real-estate.webp" alt="Sales app demo showing a Hyde Park Club property page" width="800" height="450" loading="lazy">
+                            <span class="role-badge">Mobile &amp; Backend</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>Sales App</h3>
+                            <p>Android sales app for real estate, delivered with a C# and SQL Server backend at iMATCH.</p>
+                            <ul class="tags"><li>Android</li><li>C#</li><li>SQL Server</li></ul>
+                            <div class="project-foot">
+                                <a href="https://youtu.be/Kpz5R6cYgf4" target="_blank" rel="noopener">View Project <span aria-hidden="true">&rarr;</span></a>
+                                <span class="industry-badge">Real Estate</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card" data-category="entertainment">
+                        <div class="project-media">
+                            <img src="images/projects/movie-explorer.webp" alt="Movie Explorer app screens showing upcoming movies" width="800" height="450" loading="lazy">
+                            <span class="role-badge">Mobile</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>Movie Explorer</h3>
+                            <p>Flutter movie app built with BLoC, Clean Architecture, REST and SQLite offline storage.</p>
+                            <ul class="tags"><li>Flutter</li><li>BLoC</li><li>SQLite</li></ul>
+                            <div class="project-foot">
+                                <a href="https://github.com/devalkhayat/movies-explorer-flutter-task" target="_blank" rel="noopener">View Project <span aria-hidden="true">&rarr;</span></a>
+                                <span class="industry-badge">Entertainment</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card" data-category="business">
+                        <div class="project-media">
+                            <img src="images/projects/ecomflow-manager.webp" alt="EcomFlow Manager app icon" width="800" height="450" loading="lazy">
+                            <span class="role-badge">Mobile &amp; Full-Stack</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>EcomFlow Manager</h3>
+                            <p>Internal app for managing clients, brands, branches, subscriptions and packages.</p>
+                            <ul class="tags"><li>Flutter</li><li>ASP.NET Core</li><li>SQL Server</li></ul>
+                            <div class="project-foot">
+                                <a href="https://apps.apple.com/sa/app/ecomflow-manager/id6778259104" target="_blank" rel="noopener">View Project <span aria-hidden="true">&rarr;</span></a>
+                                <span class="industry-badge">Business Management</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card" data-category="food">
+                        <div class="project-media">
+                            <img src="images/projects/food-delivery.webp" alt="Food Delivery app screens showing the menu and cart" width="800" height="450" loading="lazy">
+                            <span class="role-badge">Mobile</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>Food Delivery</h3>
+                            <p>Flutter food ordering demo using MVVM, Clean Architecture and Hive local storage.</p>
+                            <ul class="tags"><li>Flutter</li><li>Provider</li><li>Hive</li></ul>
+                            <div class="project-foot">
+                                <a href="https://github.com/devalkhayat/food-delivery-flutter-task" target="_blank" rel="noopener">View Project <span aria-hidden="true">&rarr;</span></a>
+                                <span class="industry-badge">Food &amp; Restaurants</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card" data-category="other">
+                        <div class="project-media">
+                            <img src="images/projects/booking-hotels.webp" alt="Booking app demo showing a user profile screen" width="800" height="450" loading="lazy">
+                            <span class="role-badge">Mobile</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>Booking Hotels and Trips</h3>
+                            <p>Native Android booking app using Kotlin, MVVM, Coroutines and social sign-in.</p>
+                            <ul class="tags"><li>Kotlin</li><li>MVVM</li><li>Retrofit</li></ul>
+                            <div class="project-foot">
+                                <a href="https://www.youtube.com/watch?v=QLWUS4W_TVg" target="_blank" rel="noopener">View Project <span aria-hidden="true">&rarr;</span></a>
+                                <span class="industry-badge">Hospitality &amp; Booking</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card" data-category="entertainment">
+                        <div class="project-media">
+                            <img src="images/projects/marvel-characters.webp" alt="Marvel Characters app screens showing character lists and comics" width="800" height="450" loading="lazy">
+                            <span class="role-badge">Mobile</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>Marvel Characters</h3>
+                            <p>Multi-module Jetpack Compose app with Paging 3, Hilt and type-safe navigation.</p>
+                            <ul class="tags"><li>Kotlin</li><li>Compose</li><li>Hilt</li></ul>
+                            <div class="project-foot">
+                                <a href="https://github.com/devalkhayat/digivisions-marvel-task" target="_blank" rel="noopener">View Project <span aria-hidden="true">&rarr;</span></a>
+                                <span class="industry-badge">Entertainment</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card" data-category="other">
+                        <div class="project-media">
+                            <img src="images/projects/e-wallet.webp" alt="E-Wallet app screens showing balance, payments and notifications" width="800" height="450" loading="lazy">
+                            <span class="role-badge">Mobile</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>E-Wallet</h3>
+                            <p>Compose payment app demo with MVI, Room, QR scanning and fingerprint checks.</p>
+                            <ul class="tags"><li>Kotlin</li><li>Compose</li><li>CameraX</li></ul>
+                            <div class="project-foot">
+                                <a href="https://github.com/devalkhayat/ewallet-compose-task" target="_blank" rel="noopener">View Project <span aria-hidden="true">&rarr;</span></a>
+                                <span class="industry-badge">Payments</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card" data-category="e-commerce">
+                        <div class="project-media project-media-empty" role="img" aria-label="No screenshot available for the furniture app">
+                            <span class="media-name">Furniture</span>
+                            <span class="role-badge">Mobile</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>E-Commerce App for Furniture</h3>
+                            <p>Kotlin Android e-commerce app using MVVM/MVI, delivered at TECHCUBICS.</p>
+                            <ul class="tags"><li>Kotlin</li><li>MVVM</li><li>Firebase</li></ul>
+                            <div class="project-foot">
+                                <span class="link-muted">Listing unavailable</span>
+                                <span class="industry-badge">E-Commerce</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card" data-category="other">
+                        <div class="project-media project-media-empty" role="img" aria-label="No screenshot available for the clinics app">
+                            <span class="media-name">Clinics</span>
+                            <span class="role-badge">Mobile</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>App for Clinics</h3>
+                            <p>Kotlin Android clinic app using MVVM/MVI, delivered at TECHCUBICS.</p>
+                            <ul class="tags"><li>Kotlin</li><li>MVI</li><li>Firebase</li></ul>
+                            <div class="project-foot">
+                                <span class="link-muted">Listing unavailable</span>
+                                <span class="industry-badge">Healthcare</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card" data-category="entertainment">
+                        <div class="project-media">
+                            <img src="images/projects/golf-news.webp" alt="Golf news app demo showing a tournament article" width="800" height="450" loading="lazy">
+                            <span class="role-badge">Mobile</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>Golf Sport News</h3>
+                            <p>Android news app for a golf publication, built with Kotlin and REST integrations.</p>
+                            <ul class="tags"><li>Kotlin</li><li>Room</li><li>ExoPlayer</li></ul>
+                            <div class="project-foot">
+                                <a href="https://youtu.be/03-5OATM7Xg" target="_blank" rel="noopener">View Project <span aria-hidden="true">&rarr;</span></a>
+                                <span class="industry-badge">Sports</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card" data-category="real-estate">
+                        <div class="project-media">
+                            <img src="images/projects/compound-residents.webp" alt="Compound Residents app demo showing the entertainment menu" width="800" height="450" loading="lazy">
+                            <span class="role-badge">Mobile &amp; Backend</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>Compound Residents</h3>
+                            <p>Android app for compound residents, delivered with a C# and SQL Server backend at iMATCH.</p>
+                            <ul class="tags"><li>Android</li><li>C#</li><li>SQL Server</li></ul>
+                            <div class="project-foot">
+                                <a href="https://youtu.be/fK_pstyR2dQ" target="_blank" rel="noopener">View Project <span aria-hidden="true">&rarr;</span></a>
+                                <span class="industry-badge">Real Estate</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card" data-category="entertainment">
+                        <div class="project-media">
+                            <img src="images/projects/venues-events.webp" alt="Venues and events booking app demo showing a date picker" width="800" height="450" loading="lazy">
+                            <span class="role-badge">Mobile &amp; Backend</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>Venues and Events Booking</h3>
+                            <p>Android booking app for venues and events, delivered with a C# and SQL Server backend at iMATCH.</p>
+                            <ul class="tags"><li>Android</li><li>C#</li><li>SQL Server</li></ul>
+                            <div class="project-foot">
+                                <a href="https://youtu.be/Uxm22o3INYQ" target="_blank" rel="noopener">View Project <span aria-hidden="true">&rarr;</span></a>
+                                <span class="industry-badge">Entertainment</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card" data-category="e-commerce">
+                        <div class="project-media">
+                            <img src="images/projects/clothing-shop.webp" alt="Clothing shop app screens showing stores, orders and checkout" width="800" height="450" loading="lazy">
+                            <span class="role-badge">Mobile &amp; Backend</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>Clothing Shop</h3>
+                            <p>Android clothing shop app, delivered with a C# and SQL Server backend at iMATCH.</p>
+                            <ul class="tags"><li>Android</li><li>C#</li><li>SQL Server</li></ul>
+                            <div class="project-foot">
+                                <a href="https://www.youtube.com/watch?v=PZg1BwvQTCA" target="_blank" rel="noopener">View Project <span aria-hidden="true">&rarr;</span></a>
+                                <span class="industry-badge">E-Commerce</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="project-card" data-category="business">
+                        <div class="project-media">
+                            <img src="images/projects/services-facilitator.webp" alt="Services Facilitator app screens showing requests and a map" width="800" height="450" loading="lazy">
+                            <span class="role-badge">Mobile</span>
+                        </div>
+                        <div class="project-body">
+                            <h3>Services Facilitator</h3>
+                            <p>Android app for managing and requesting services, delivered at iMATCH.</p>
+                            <ul class="tags"><li>Android</li><li>Google Maps</li></ul>
+                            <div class="project-foot">
+                                <a href="https://www.youtube.com/watch?v=bnK-A-_o2M8" target="_blank" rel="noopener">View Project <span aria-hidden="true">&rarr;</span></a>
+                                <span class="industry-badge">Managerial</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="dots" id="project-dots"></div>
+                <p class="projects-more" id="projects-more" hidden>
+                    <a href="https://www.youtube.com/playlist?list=PLHmyYOl9GKA1H8NEQUJZGcy0xsuZLBRz0" target="_blank" rel="noopener">Watch the full demo playlist on YouTube <span aria-hidden="true">&rarr;</span></a>
                 </p>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <strong>📧 Email:</strong> 
-                        <a href="mailto:mz.alkhayat@hotmail.com">mz.alkhayat@hotmail.com</a>
+            </div>
+        </section>
+
+        <!-- Key Skills Section -->
+        <section id="skills" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Key Skills</p>
+                        <h2 class="section-title">My Main Technologies</h2>
                     </div>
-                    <div class="contact-item">
-                        <strong>📱 Phone:</strong> 
-                        <a href="tel:+201112817226">+20-1112817226</a>
+                </div>
+                <div class="carousel">
+                    <button type="button" class="carousel-arrow" id="skills-prev" aria-label="Previous technologies">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <ul class="carousel-track" id="skills-track" tabindex="0" aria-label="Main technologies, scrollable">
+                        <li class="skill-card"><img src="images/icons/android.svg" alt="" width="64" height="64"><span>Android</span></li>
+                        <li class="skill-card"><img src="images/icons/flutter.svg" alt="" width="64" height="64"><span>Flutter</span></li>
+                        <li class="skill-card"><img src="images/icons/dotnet.svg" alt="" width="64" height="64"><span>.NET</span></li>
+                        <li class="skill-card"><img src="images/icons/sqlserver.svg" alt="" width="64" height="64"><span>SQL Server</span></li>
+                        <li class="skill-card"><img src="images/icons/docker.svg" alt="" width="64" height="64"><span>Docker</span></li>
+                        <li class="skill-card">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#0b63f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"></rect><path d="M9.5 15l1.5-6h2l1.5 6"></path><path d="M10.2 13h3.6"></path><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"></path></svg>
+                            <span>AI Development Tools</span>
+                        </li>
+                        <li class="skill-card"><img src="images/icons/kotlin.svg" alt="" width="64" height="64"><span>Kotlin</span></li>
+                        <li class="skill-card"><img src="images/icons/dart.svg" alt="" width="64" height="64"><span>Dart</span></li>
+                        <li class="skill-card"><img src="images/icons/java.svg" alt="" width="64" height="64"><span>Java</span></li>
+                        <li class="skill-card"><img src="images/icons/csharp.svg" alt="" width="64" height="64"><span>C#</span></li>
+                        <li class="skill-card"><img src="images/icons/firebase.svg" alt="" width="64" height="64"><span>Firebase</span></li>
+                        <li class="skill-card"><img src="images/icons/git.svg" alt="" width="64" height="64"><span>Git</span></li>
+                        <li class="skill-card"><img src="images/icons/githubactions.svg" alt="" width="64" height="64"><span>GitHub Actions</span></li>
+                    </ul>
+                    <button type="button" class="carousel-arrow" id="skills-next" aria-label="Next technologies">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+                <div class="dots" id="skills-dots"></div>
+
+                <article class="exploring" aria-labelledby="exploring-title">
+                    <div class="exploring-intro">
+                        <p class="exploring-label">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 3l1.9 5.6a4 4 0 0 0 2.5 2.5L20 13l-5.6 1.9a4 4 0 0 0-2.5 2.5L10 23l-1.9-5.6a4 4 0 0 0-2.5-2.5L0 13l5.6-1.9a4 4 0 0 0 2.5-2.5L10 3z" transform="translate(1 -1) scale(.9)"/><path d="M19 1l.9 2.6a2 2 0 0 0 1.5 1.5L24 6l-2.6.9a2 2 0 0 0-1.5 1.5L19 11l-.9-2.6a2 2 0 0 0-1.5-1.5L14 6l2.6-.9a2 2 0 0 0 1.5-1.5L19 1z"/></svg>
+                            Currently Exploring
+                        </p>
+                        <h3 id="exploring-title">AI Agent-Based Solutions</h3>
                     </div>
-                    <div class="contact-item">
-                        <strong>🌍 Location:</strong> Alexandria, Egypt
+                    <p class="exploring-description">Exploring the design and development of intelligent, agent-based applications using modern AI technologies.</p>
+                    <ul class="exploring-tags">
+                        <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="12" rx="3"></rect><path d="M12 8V4"></path><circle cx="12" cy="3" r="1"></circle><path d="M9 13v1M15 13v1"></path></svg>AI Agents</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="3"></circle><circle cx="5" cy="19" r="3"></circle><circle cx="19" cy="19" r="3"></circle><path d="M10.5 7.6L6.5 16.4M13.5 7.6l4 8.8"></path></svg>Agentic Workflows</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 12 12 17 22 12"></polyline><polyline points="2 17 12 22 22 17"></polyline></svg>Retrieval-Augmented Generation (RAG)</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="7" rx="2"></rect><rect x="3" y="14" width="18" height="7" rx="2"></rect><path d="M7 6.5h.01M7 17.5h.01"></path></svg>MCP Servers</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0 5.2 5.2l-9.6 9.6a2.4 2.4 0 0 1-3.4-3.4l9.6-9.6a4 4 0 0 1-1.8-1.8z" transform="translate(-2 0)"></path><path d="M14.5 2.5a5 5 0 0 1 5.5 1l-3 3 1 1 3-3a5 5 0 0 1 1 5.5"></path></svg>Tool Calling</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Multi-Agent Systems</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <!-- Work Experience Section -->
+        <section id="experience" class="section">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Professional Experience</p>
+                        <h2 class="section-title">Work Experience</h2>
+                    </div>
+                    <button type="button" class="btn-link" id="experience-toggle" aria-expanded="false" aria-controls="experience-full">
+                        <span>View Full Experience</span> <span aria-hidden="true">&rarr;</span>
+                    </button>
+                </div>
+
+                <div class="carousel">
+                <button type="button" class="carousel-arrow" id="experience-prev" aria-label="Previous experience">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <ol class="timeline" id="experience-track" tabindex="0" aria-label="Work history timeline, scrollable">
+                    <li class="timeline-item">
+                        <article class="timeline-card">
+                            <h3>EcomFlow</h3>
+                            <p class="timeline-place">Saudi Arabia &middot; Remote</p>
+                            <p class="job-title">Mobile &amp; Full-Stack Developer</p>
+                            <p>Developed and published two Flutter apps and .NET 10 / SQL Server APIs; integrated MyFatoorah payments.</p>
+                        </article>
+                        <span class="timeline-marker" aria-hidden="true"></span>
+                        <p class="timeline-date">Jan 2026 &ndash; Present</p>
+                    </li>
+                    <li class="timeline-item">
+                        <article class="timeline-card">
+                            <h3>Independent</h3>
+                            <p class="timeline-place">Remote</p>
+                            <p class="job-title">Mobile Developer</p>
+                            <p>Built Flutter and native Android apps using Clean Architecture, BLoC, Kotlin and Jetpack Compose.</p>
+                        </article>
+                        <span class="timeline-marker" aria-hidden="true"></span>
+                        <p class="timeline-date">Oct 2023 &ndash; Jan 2026</p>
+                    </li>
+                    <li class="timeline-item">
+                        <article class="timeline-card">
+                            <h3>TECHCUBICS</h3>
+                            <p class="timeline-place">Egypt &middot; Remote</p>
+                            <p class="job-title">Android Developer</p>
+                            <p>Delivered Kotlin e-commerce and clinic apps using MVVM/MVI and published them to Google Play.</p>
+                        </article>
+                        <span class="timeline-marker" aria-hidden="true"></span>
+                        <p class="timeline-date">Sep 2022 &ndash; Sep 2023</p>
+                    </li>
+                    <li class="timeline-item">
+                        <article class="timeline-card">
+                            <h3>CODEEVOO</h3>
+                            <p class="timeline-place">Germany &middot; Remote</p>
+                            <p class="job-title">Android Developer</p>
+                            <p>Built an Android news app for a golf publication and redesigned a chat app's UI.</p>
+                        </article>
+                        <span class="timeline-marker" aria-hidden="true"></span>
+                        <p class="timeline-date">Mar 2021 &ndash; Apr 2022</p>
+                    </li>
+                    <li class="timeline-item">
+                        <article class="timeline-card">
+                            <h3>iMATCH</h3>
+                            <p class="timeline-place">Egypt</p>
+                            <p class="job-title">Co-Founder &amp; Full-Stack Developer</p>
+                            <p>Led mobile, backend and design teams; built Android apps and C# / SQL Server backends.</p>
+                        </article>
+                        <span class="timeline-marker" aria-hidden="true"></span>
+                        <p class="timeline-date">Mar 2017 &ndash; Jan 2021</p>
+                    </li>
+                </ol>
+                <button type="button" class="carousel-arrow" id="experience-next" aria-label="Next experience">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+                </div>
+                <div class="dots" id="experience-dots"></div>
+
+                <div class="experience-full" id="experience-full" hidden>
+                    <div class="detail-grid">
+                        <article class="detail-card">
+                            <h3>EcomFlow</h3>
+                            <p class="detail-meta">Mobile &amp; Full-Stack Developer &middot; Saudi Arabia (Remote) &middot; Jan 2026 &ndash; Present</p>
+                            <ul>
+                                <li>Led technical analysis, architecture and implementation; collaborated with management and guided developers.</li>
+                                <li>Developed and published two Flutter apps and .NET 10 / SQL Server APIs; integrated MyFatoorah payments.</li>
+                                <li>Strengthened security and reduced database reads by 45&ndash;800&times; in selected workloads; used Claude Code and ChatGPT for development, debugging and testing.</li>
+                            </ul>
+                        </article>
+                        <article class="detail-card">
+                            <h3>Independent</h3>
+                            <p class="detail-meta">Mobile Developer &middot; Remote &middot; Oct 2023 &ndash; Jan 2026</p>
+                            <ul>
+                                <li>Built Flutter Movie Explorer with BLoC, Clean Architecture, REST and SQLite offline storage.</li>
+                                <li>Developed native Android booking app using Kotlin, MVVM, Coroutines and social sign-in.</li>
+                                <li>Created multi-module Jetpack Compose Marvel app with Paging 3, Hilt and type-safe navigation.</li>
+                            </ul>
+                        </article>
+                        <article class="detail-card">
+                            <h3>TECHCUBICS</h3>
+                            <p class="detail-meta">Android Developer &middot; Egypt (Remote) &middot; Sep 2022 &ndash; Sep 2023</p>
+                            <ul>
+                                <li>Delivered Kotlin-based Android e-commerce and clinic applications using MVVM/MVI patterns.</li>
+                                <li>Implemented REST API integration, modular architecture and Firebase Analytics.</li>
+                                <li>Performed unit testing and published 2+ applications to Google Play.</li>
+                            </ul>
+                            <p class="detail-tech"><strong>Tech Stack:</strong> Kotlin, Retrofit, MVVM, MVI, Coroutines, Koin, Multi-module Architecture, Navigation Component, XML Layout, Firebase Analytics, Figma</p>
+                        </article>
+                        <article class="detail-card">
+                            <h3>CODEEVOO</h3>
+                            <p class="detail-meta">Android Developer &middot; Germany (Remote) &middot; Mar 2021 &ndash; Apr 2022</p>
+                            <ul>
+                                <li>Built Android news application for a golf publication with Kotlin and REST integrations.</li>
+                                <li>Redesigned chat application UI to improve usability and visual consistency.</li>
+                                <li>Developed a localization utility exporting Android XML translations from English to German.</li>
+                            </ul>
+                            <p class="detail-tech"><strong>Tech Stack:</strong> Kotlin, Retrofit, MVP, MVI, Coroutines, Room, Exoplayer, Lottie, FCM, WordPress API, Koin, XML Layout, Figma, Adobe XD, Docker</p>
+                        </article>
+                        <article class="detail-card">
+                            <h3>iMATCH</h3>
+                            <p class="detail-meta">Co-Founder &amp; Full-Stack Developer &middot; Egypt &middot; Mar 2017 &ndash; Jan 2021</p>
+                            <ul>
+                                <li>Led mobile, backend and design teams, translating client requirements into delivered solutions.</li>
+                                <li>Developed Android apps and C# / SQL Server backends for real estate, booking and commerce.</li>
+                                <li>Published 5+ Android applications on Google Play and managed client-facing project delivery.</li>
+                            </ul>
+                            <p class="detail-tech"><strong>Tech Stack:</strong> Java, Kotlin, MVP, Retrofit, FCM, One Signal, Glide, XML, Adobe XD, Payment Gateway Integration, SMS Misr, Socket.IO, C#, ASP MVC, Web API, SQL Server, Entity Framework, HTML, CSS, JavaScript, Bootstrap, Google Maps API</p>
+                        </article>
+                        <article class="detail-card">
+                            <h3>Technical Skills</h3>
+                            <p class="detail-tech"><strong>Android Native:</strong> Kotlin, Java, MVC, MVP, MVVM, MVI, XML, Jetpack Compose, View/Data Binding, Navigation Component, Retrofit, Ktor Client, Dagger-Hilt, Koin, Room, SQLite, Coroutines, RxJava, Unit Test, Gradle</p>
+                            <p class="detail-tech"><strong>Flutter:</strong> Dart, Http, Hive, Provider, Bloc, Cubit, Get_IT, Go_Router</p>
+                            <p class="detail-tech"><strong>Backend &amp; Tools:</strong> C#, ASP MVC, ASP Web API, ASP.NET Core, EF Core, SQL Server, Windows Forms, HTML, CSS, JavaScript, Bootstrap, Git, Docker, Firebase, GitHub Actions, Jira, Scrum, Design Patterns, Clean Architecture, Amazon S3</p>
+                        </article>
+                        <article class="detail-card" id="education">
+                            <h3>Education</h3>
+                            <p class="detail-meta">Bachelor of Management Information Systems</p>
+                            <p>Egyptian High Institute of Alexandria Academy for Management and Accounting, Alexandria, Egypt</p>
+                        </article>
+                        <article class="detail-card">
+                            <h3>Languages</h3>
+                            <p><strong>Arabic:</strong> Native</p>
+                            <p><strong>English:</strong> Very Good</p>
+                        </article>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="section experience">
-        <div class="container">
-            <h2 class="section-title">Experience</h2>
-            <div class="timeline">
-                <!-- Freelance -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-period">Freelance / Personal Projects</span>
-                        <h3>Mobile Developer - Independent</h3>
-                        <div class="projects">
-                            <div class="project-card">
-                                <h4>Movie Explorer Task App</h4>
-                                <div class="project-tags">
-                                    <span class="tag">Flutter</span>
-                                </div>
-                                <div class="project-tech">
-                                    <strong>Tech Stack:</strong> Clean Architecture, Dart, Flutter, Bloc, Http, Sqflite, go_router, get_it, Figma
-                                </div>
-                                <a href="https://github.com/devalkhayat/movies-explorer-flutter-task" target="_blank" class="project-link">View Repository →</a>
-                            </div>
-                            <div class="project-card">
-                                <h4>Food Delivery Task App</h4>
-                                <div class="project-tags">
-                                    <span class="tag">Flutter</span>
-                                </div>
-                                <div class="project-tech">
-                                    <strong>Tech Stack:</strong> MVVM, Clean Architecture, Dart, Flutter, Provider, Http, Hive, Navigation, Figma
-                                </div>
-                                <a href="https://github.com/devalkhayat/food-delivery-flutter-task" target="_blank" class="project-link">View Repository →</a>
-                            </div>
-                            <div class="project-card">
-                                <h4>Booking Hotels and Trips App</h4>
-                                <div class="project-tags">
-                                    <span class="tag">Android Native</span>
-                                </div>
-                                <div class="project-tech">
-                                    <strong>Tech Stack:</strong> MVVM, Kotlin, Retrofit, Coroutines, Koin, View Binding, XML Layout, Navigation Component, SafeArgs, Figma, Social Login
-                                </div>
-                                <a href="https://www.youtube.com/watch?v=QLWUS4W_TVg" target="_blank" class="project-link">Watch Demo →</a>
-                            </div>
-                            <div class="project-card">
-                                <h4>Marvel Characters Task App</h4>
-                                <div class="project-tags">
-                                    <span class="tag">Android Native</span>
-                                </div>
-                                <div class="project-tech">
-                                    <strong>Tech Stack:</strong> Multi-module architecture, MVVM, Jetpack Compose, Kotlin, Coil, Version Catalogs, Dagger-Hilt, Paging 3, Compose Navigation
-                                </div>
-                                <a href="https://github.com/devalkhayat/digivisions-marvel-task" target="_blank" class="project-link">View Repository →</a>
-                            </div>
-                            <div class="project-card">
-                                <h4>E-Wallet Android Task App</h4>
-                                <div class="project-tags">
-                                    <span class="tag">Android Native</span>
-                                </div>
-                                <div class="project-tech">
-                                    <strong>Tech Stack:</strong> Multi-module architecture, MVI, Jetpack Compose, Kotlin, Coil, Dagger-Hilt, Room, CameraX, Zing, Figma
-                                </div>
-                                <a href="https://github.com/devalkhayat/ewallet-compose-task" target="_blank" class="project-link">View Repository →</a>
-                            </div>
+        <!-- Contact Section -->
+        <section id="contact" class="section section-contact">
+            <span id="resume" class="legacy-anchor"></span>
+            <span id="hire" class="legacy-anchor"></span>
+            <div class="container contact-inner">
+                <div class="contact-intro">
+                    <p class="eyebrow">Let's Connect</p>
+                    <h2 class="section-title">Get In Touch</h2>
+                    <p>I'm available for freelance projects and full-time opportunities, and always open to discussing interesting projects.</p>
+                </div>
+                <ul class="contact-cards">
+                    <li>
+                        <a href="mailto:mz.alkhayat@hotmail.com" class="contact-card">
+                            <span class="contact-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></span>
+                            <span><strong>Email</strong> <span class="contact-value">mz.alkhayat@hotmail.com</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tel:+201112817226" class="contact-card">
+                            <span class="contact-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></span>
+                            <span><strong>Phone</strong> <span class="contact-value">+20 111 281 7226</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="contact-card">
+                            <span class="contact-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
+                            <span><strong>Location</strong> <span class="contact-value">Alexandria, Egypt</span></span>
                         </div>
-                    </div>
-                </div>
-
-                <!-- TECHCUBICS -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-period">Sep 2022 – Sep 2023</span>
-                        <h3>Android Developer</h3>
-                        <div class="company-name">TECHCUBICS Co. (Remote, Egypt)</div>
-                        <ul class="responsibilities">
-                            <li>Develop and implement e-commerce applications for Android</li>
-                            <li>Perform unit testing and ensure reliability and robustness</li>
-                            <li>Publish applications to Google Play Store</li>
-                        </ul>
-                        <div class="tech-stack">
-                            <strong>Tech Stack:</strong> Kotlin, Retrofit, MVVM, MVI, Coroutines, Koin, Multi-module Architecture, Navigation Component, XML Layout, Firebase Analytics, Figma
-                        </div>
-                        <div class="projects">
-                            <div class="project-card">
-                                <h4>E-Commerce App for Furniture</h4>
-                                <a href="https://play.google.com/store/apps/details?id=com.techcubics.furniture" target="_blank" class="project-link">View on Play Store →</a>
-                            </div>
-                            <div class="project-card">
-                                <h4>App for Clinics</h4>
-                                <a href="https://play.google.com/store/apps/details?id=com.techcubics.smartyclinicapp" target="_blank" class="project-link">View on Play Store →</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CODEEVOO -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-period">Mar 2021 – Apr 2022</span>
-                        <h3>Android Developer</h3>
-                        <div class="company-name">CODEEVOO Co. (Remote, Germany)</div>
-                        <ul class="responsibilities">
-                            <li>Develop mobile app for golf sport newspaper</li>
-                            <li>Reskin chat application for better UX</li>
-                            <li>Develop web tool for English-German translation</li>
-                        </ul>
-                        <div class="tech-stack">
-                            <strong>Tech Stack:</strong> Kotlin, Retrofit, MVP, MVI, Coroutines, Room, Exoplayer, Lottie, FCM, WordPress API, Koin, XML Layout, Figma, Adobe XD, Docker
-                        </div>
-                        <div class="projects">
-                            <div class="project-card">
-                                <h4>Golf Sport News Mobile App</h4>
-                                <a href="https://youtu.be/03-5OATM7Xg" target="_blank" class="project-link">Watch Demo →</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- iMATCH -->
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-period">Mar 2017 – Jan 2021</span>
-                        <h3>Co-founder and CEO</h3>
-                        <div class="company-name">iMATCH Co. (Egypt)</div>
-                        <ul class="responsibilities">
-                            <li>Manage and collaborate with backend, UI, and iOS teams</li>
-                            <li>Meet clients to gather requirements and transform into technical tasks</li>
-                            <li>Develop Android and backend applications</li>
-                            <li>Publish more than five apps on Google Play Store</li>
-                        </ul>
-                        <div class="tech-stack">
-                            <strong>Tech Stack:</strong> Java, Kotlin, MVP, Retrofit, FCM, One Signal, Glide, XML, Adobe XD, Payment Gateway Integration, SMS Misr, Socket.IO, C#, ASP MVC, Web API, SQL Server, Entity Framework, HTML, CSS, JavaScript, Bootstrap, Google Maps API
-                        </div>
-                        <div class="projects">
-                            <div class="project-card">
-                                <h4>Sales App (Real Estate)</h4>
-                                <a href="https://youtu.be/Kpz5R6cYgf4" target="_blank" class="project-link">Watch Demo →</a>
-                            </div>
-                            <div class="project-card">
-                                <h4>Compound Residents App (Real Estate)</h4>
-                                <a href="https://youtu.be/fK_pstyR2dQ" target="_blank" class="project-link">Watch Demo →</a>
-                            </div>
-                            <div class="project-card">
-                                <h4>Venues and Events Booking App (Entertainment)</h4>
-                                <a href="https://youtu.be/Uxm22o3INYQ" target="_blank" class="project-link">Watch Demo →</a>
-                            </div>
-                            <div class="project-card">
-                                <h4>Clothing Shop App (E-commerce)</h4>
-                                <a href="https://www.youtube.com/watch?v=PZg1BwvQTCA" target="_blank" class="project-link">Watch Demo →</a>
-                            </div>
-                            <div class="project-card">
-                                <h4>Services Facilitator App (Managerial)</h4>
-                                <a href="https://www.youtube.com/watch?v=bnK-A-_o2M8" target="_blank" class="project-link">Watch Demo →</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="section skills">
-        <div class="container">
-            <h2 class="section-title">Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Android Native</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Kotlin</span>
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">MVC</span>
-                        <span class="skill-tag">MVP</span>
-                        <span class="skill-tag">MVVM</span>
-                        <span class="skill-tag">MVI</span>
-                        <span class="skill-tag">XML</span>
-                        <span class="skill-tag">Jetpack Compose</span>
-                        <span class="skill-tag">View/Data Binding</span>
-                        <span class="skill-tag">Navigation Component</span>
-                        <span class="skill-tag">Retrofit</span>
-                        <span class="skill-tag">Ktor Client</span>
-                        <span class="skill-tag">Dagger-Hilt</span>
-                        <span class="skill-tag">Koin</span>
-                        <span class="skill-tag">Room</span>
-                        <span class="skill-tag">SQLite</span>
-                        <span class="skill-tag">Coroutines</span>
-                        <span class="skill-tag">RxJava</span>
-                        <span class="skill-tag">Unit Test</span>
-                        <span class="skill-tag">Gradle</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Flutter</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Dart</span>
-                        <span class="skill-tag">Http</span>
-                        <span class="skill-tag">Hive</span>
-                        <span class="skill-tag">Provider</span>
-                        <span class="skill-tag">Bloc</span>
-                        <span class="skill-tag">Cubit</span>
-                        <span class="skill-tag">Get_IT</span>
-                        <span class="skill-tag">Go_Router</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Backend & Tools</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">C#</span>
-                        <span class="skill-tag">ASP MVC</span>
-                        <span class="skill-tag">ASP Web API</span>
-                        <span class="skill-tag">SQL Server</span>
-                        <span class="skill-tag">Windows Forms</span>
-                        <span class="skill-tag">HTML</span>
-                        <span class="skill-tag">CSS</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">Bootstrap</span>
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">Firebase</span>
-                        <span class="skill-tag">Jira</span>
-                        <span class="skill-tag">Scrum</span>
-                        <span class="skill-tag">Design Patterns</span>
-                        <span class="skill-tag">Clean Architecture</span>
-                        <span class="skill-tag">Amazon S3</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education" class="section education">
-        <div class="container">
-            <h2 class="section-title">Education</h2>
-            <div class="education-card">
-                <h3>Bachelor of Management Information Systems</h3>
-                <p class="institution">Egyptian High Institute of Alexandria Academy for Management and Accounting</p>
-                <p class="location">📍 Alexandria, Egypt</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Languages Section -->
-    <section class="section languages">
-        <div class="container">
-            <h2 class="section-title">Languages</h2>
-            <div class="languages-grid">
-                <div class="language-item">
-                    <h4>Arabic</h4>
-                    <p>Native</p>
-                </div>
-                <div class="language-item">
-                    <h4>English</h4>
-                    <p>Good</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Resume Section -->
-    <section id="resume" class="section resume-section">
-        <div class="container">
-            <div class="resume-content">
-                <h2>Want a Copy of My Resume?</h2>
-                <p class="resume-subtitle">Download my detailed resume in PDF format with all my experience, skills, and projects.</p>
-                <div class="resume-download">
-                    <a href="resume.pdf" download="Mohammed_Alkhayat_Resume.pdf" class="btn-download">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7 10 12 15 17 10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                        Download Resume (PDF)
+                    </li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/malkhayat" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                     </a>
-                    <p class="resume-note">📄 PDF format • Updated with latest projects</p>
+                    <a href="https://github.com/devalkhayat" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Hire Me Section -->
-    <section id="hire" class="section hire-me">
-        <div class="container">
-            <div class="hire-content">
-                <h2>Ready to Build Something Amazing?</h2>
-                <p class="hire-subtitle">I'm available for freelance projects and full-time opportunities. Let's discuss how I can help bring your ideas to life with cutting-edge mobile solutions.</p>
-                <div class="hire-stats">
-                    <div class="stat-item">
-                        <h3>5+</h3>
-                        <p>Years Experience</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>15+</h3>
-                        <p>Projects Delivered</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>6+</h3>
-                        <p>Apps Published</p>
-                    </div>
-                </div>
-                <div class="hire-actions">
-                    <a href="#contact" class="btn btn-hire">Get In Touch</a>
-                    <a href="mailto:mz.alkhayat@hotmail.com?subject=Hiring Inquiry" class="btn btn-email">Send Email</a>
-                </div>
-                <p class="hire-note">💡 Available for Android & Flutter development projects</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="contact-subtitle">I'm always open to discussing new opportunities and interesting projects.</p>
-            <div class="contact-links">
-                <a href="mailto:mz.alkhayat@hotmail.com" class="contact-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                        <polyline points="22,6 12,13 2,6"></polyline>
-                    </svg>
-                    <span>Email</span>
-                </a>
-                <a href="https://www.linkedin.com/in/malkhayat" target="_blank" class="contact-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                    </svg>
-                    <span>LinkedIn</span>
-                </a>
-                <a href="https://github.com/devalkhayat" target="_blank" class="contact-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                    <span>GitHub</span>
-                </a>
-                <a href="tel:+201112817226" class="contact-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                    </svg>
-                    <span>Phone</span>
-                </a>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Mohammed Alkhayat. All rights reserved.</p>
+            <p>&copy; 2026 Mohammed Alkhayat. All rights reserved.</p>
         </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
-
