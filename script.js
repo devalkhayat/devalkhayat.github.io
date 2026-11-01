@@ -22,6 +22,13 @@ const navbar = document.querySelector('.navbar');
 const sections = document.querySelectorAll('main > section');
 const navLinks = document.querySelectorAll('.nav-menu a');
 
+// Close mobile menu when tapping outside the header
+document.addEventListener('click', event => {
+    if (navMenu.classList.contains('active') && !navbar.contains(event.target)) {
+        setMenuOpen(false);
+    }
+});
+
 function onScroll() {
     navbar.classList.toggle('scrolled', window.scrollY > 20);
 
@@ -220,7 +227,11 @@ if (window.location.hash === '#education') {
 }
 
 let resizeTimer;
+let lastWidth = window.innerWidth;
 window.addEventListener('resize', () => {
+    // A phone's address bar changes the height while scrolling; rebuilding then makes the dots flicker
+    if (window.innerWidth === lastWidth) return;
+    lastWidth = window.innerWidth;
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
         renderProjects();

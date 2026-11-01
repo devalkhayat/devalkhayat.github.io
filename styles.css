@@ -1088,6 +1088,12 @@ a.contact-card:hover {
     }
 }
 
+@keyframes card-rise {
+    from {
+        transform: translateY(14px);
+    }
+}
+
 /* Footer */
 .footer {
     padding: 18px 0;
@@ -1363,6 +1369,34 @@ a.contact-card:hover {
 
     .timeline-marker {
         height: 36px;
+    }
+
+    /* Phones can reach a card before it's revealed, which leaves a blank gap, so cards here only move */
+    .project-card.reveal,
+    .skill-card.reveal,
+    .timeline-card.reveal {
+        opacity: 1;
+    }
+
+    .project-card.reveal.is-visible {
+        animation-name: card-rise;
+        animation-delay: 0s;
+    }
+
+    /* Cards sliding in from the side don't rise as well, only the ones showing first */
+    .skill-card.reveal.is-visible,
+    .timeline-card.reveal.is-visible {
+        animation: none;
+    }
+
+    .skill-card.reveal.is-visible:nth-child(-n + 2),
+    .timeline-item:first-child .timeline-card.reveal.is-visible {
+        animation: card-rise 0.5s ease;
+    }
+
+    /* Two skills show at a time, so swipes stop on whole pages and match the dots */
+    .skill-card:nth-child(even) {
+        scroll-snap-align: none;
     }
 }
 
