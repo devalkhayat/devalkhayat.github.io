@@ -8,7 +8,7 @@ A modern, responsive static portfolio website showcasing professional experience
 - **Fully Responsive**: Works on desktop, tablet, and mobile devices
 - **Interactive Navigation**: Sticky navbar with smooth scrolling to sections
 - **Mobile Menu**: Hamburger menu for mobile devices
-- **Project Showcase**: Filterable project cards with a View All option
+- **Project Showcase**: Filterable project cards with Previous / Next pages; each filter keeps its own page
 - **Skills Carousel**: Swipe, arrow, dot, and keyboard navigation
 - **Experience Timeline**: Horizontal timeline with an expandable full history
 - **Contact Integration**: Quick access to email, phone, LinkedIn, GitHub, and website

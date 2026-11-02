@@ -78,14 +78,23 @@ function renderDots(container, count, label, onSelect) {
     };
 }
 
-// Project filters, pagination and "View All"
+// Project filters and Previous / Next pages; each filter remembers its own page
 const projectCards = [...document.querySelectorAll('.project-card')];
 const filterButtons = document.querySelectorAll('.filter');
+const projectCarousel = document.getElementById('project-carousel');
+const projectPrev = document.getElementById('projects-prev');
+const projectNext = document.getElementById('projects-next');
 const projectDots = document.getElementById('project-dots');
-const projectState = { filter: 'all', page: 0 };
+const projectState = { filter: 'all', pages: {} };
 
 function projectsPerPage() {
+    if (window.matchMedia('(max-width: 640px)').matches) return 1;
     return window.matchMedia('(max-width: 1024px)').matches ? 2 : 3;
+}
+
+function showProjectPage(page) {
+    projectState.pages[projectState.filter] = page;
+    renderProjects();
 }
 
 function renderProjects() {
@@ -94,20 +103,24 @@ function renderProjects() {
     );
     const perPage = projectsPerPage();
     const pageCount = Math.ceil(matching.length / perPage);
-    projectState.page = Math.min(projectState.page, pageCount - 1);
+    const page = Math.min(projectState.pages[projectState.filter] || 0, pageCount - 1);
+    projectState.pages[projectState.filter] = page;
 
-    const start = projectState.page * perPage;
+    const start = page * perPage;
     const visible = matching.slice(start, start + perPage);
     projectCards.forEach(card => {
         card.hidden = !visible.includes(card);
     });
 
-    const highlight = renderDots(projectDots, pageCount, 'Projects page', page => {
-        projectState.page = page;
-        renderProjects();
-    });
-    highlight(projectState.page);
+    projectPrev.disabled = page === 0;
+    projectNext.disabled = page >= pageCount - 1;
+    projectCarousel.classList.toggle('is-single', pageCount < 2);
+    const highlight = renderDots(projectDots, pageCount, 'Projects page', showProjectPage);
+    highlight(page);
 }
+
+projectPrev.addEventListener('click', () => showProjectPage(projectState.pages[projectState.filter] - 1));
+projectNext.addEventListener('click', () => showProjectPage(projectState.pages[projectState.filter] + 1));
 
 filterButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -117,7 +130,6 @@ filterButtons.forEach(button => {
             other.setAttribute('aria-pressed', String(isSelected));
         });
         projectState.filter = button.dataset.filter;
-        projectState.page = 0;
         renderProjects();
         // On mobile the chip may be partly off-screen in the scrolling row
         button.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -203,6 +215,7 @@ const detailsBody = document.getElementById('details-body');
 let detailsTrigger = null;
 
 function openDetails(sourceId, trigger) {
+    if (detailsDialog.open) return;
     const source = document.getElementById(sourceId);
     const cards = source.matches('.detail-card') ? [source] : [...source.querySelectorAll('.detail-card')];
     // A single job uses its company name as the title; a group keeps each card's heading
@@ -230,18 +243,34 @@ document.querySelectorAll('[data-details]').forEach(link => {
     link.addEventListener('click', () => openDetails(link.dataset.details, link));
 });
 
-document.getElementById('details-close').addEventListener('click', () => detailsDialog.close());
+// The bottom sheet slides away before the dialog really closes; with no exit animation it closes at once
+function closeDetails() {
+    if (!detailsDialog.open || detailsDialog.classList.contains('is-closing')) return;
+    detailsDialog.classList.add('is-closing');
+    Promise.all(detailsDialog.getAnimations().map(animation => animation.finished))
+        .catch(() => {})
+        .then(() => detailsDialog.close());
+}
+
+document.getElementById('details-close').addEventListener('click', closeDetails);
+
+// Escape would close the dialog instantly, so it goes through the same animation
+detailsDialog.addEventListener('cancel', event => {
+    event.preventDefault();
+    closeDetails();
+});
 
 // A click that lands on the dialog itself is on the backdrop outside the panel
 detailsDialog.addEventListener('click', event => {
     if (event.target === detailsDialog) {
-        detailsDialog.close();
+        closeDetails();
     }
 });
 
 detailsDialog.addEventListener('close', () => {
     document.documentElement.classList.remove('dialog-open');
     document.body.style.paddingRight = '';
+    detailsDialog.classList.remove('is-closing');
     detailsDialog.style.transform = '';
     if (detailsTrigger) {
         detailsTrigger.focus({ preventScroll: true });
@@ -271,7 +300,7 @@ function endDrag(event) {
     dragStart = null;
     detailsDialog.style.transition = '';
     if (distance > 80) {
-        detailsDialog.close();
+        closeDetails();
     } else {
         detailsDialog.style.transform = '';
     }
