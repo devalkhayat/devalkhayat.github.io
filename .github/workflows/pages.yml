@@ -1,0 +1,48 @@
+# Publishes the site to GitHub Pages. index.html links styles.css and script.js with a ?v= hash of
+# their contents, so a new deploy always loads matching files while unchanged files stay cached.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build site with versioned assets
+        run: |
+          mkdir _site
+          rsync -a --exclude .git --exclude .github --exclude _site ./ _site/
+          css=$(sha256sum styles.css | cut -c1-10)
+          js=$(sha256sum script.js | cut -c1-10)
+          sed -i -e "s|href=\"styles.css\"|href=\"styles.css?v=$css\"|" \
+                 -e "s|src=\"script.js\"|src=\"script.js?v=$js\"|" _site/index.html
+          # Fail rather than publish a page whose links weren't rewritten
+          grep -q "styles.css?v=$css" _site/index.html
+          grep -q "script.js?v=$js" _site/index.html
+          touch _site/.nojekyll
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

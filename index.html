@@ -58,7 +58,7 @@
                     <p class="hero-greeting"><span aria-hidden="true">👋</span> Hello, I'm</p>
                     <h1 class="hero-name">Mohammed Alkhayat</h1>
                     <p class="hero-title"><span>Mobile &amp; Full-Stack</span> Developer</p>
-                    <p class="hero-description">I build scalable mobile and web applications with clean architecture, focusing on real-world solutions that make a difference.</p>
+                    <p class="hero-description">I build scalable mobile, web, and desktop applications, along with backend systems and APIs, using clean architecture and focusing on real-world solutions that make a difference.</p>
                     <div class="hero-buttons">
                         <a href="#projects" class="btn btn-primary">
                             View My Projects
@@ -100,11 +100,11 @@
                     </div>
                 </div>
 
-                <div class="carousel project-carousel" id="project-carousel">
+                <div class="carousel">
                 <button type="button" class="carousel-arrow" id="projects-prev" aria-label="Previous projects">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </button>
-                <div class="project-grid" id="project-grid" aria-live="polite">
+                <div class="project-grid" id="projects-track" tabindex="0" aria-label="Selected projects, scrollable">
                     <article class="project-card" data-category="food">
                         <div class="project-media">
                             <img src="images/projects/ecomflow-merchant.webp" alt="EcomFlow Merchant app screens showing product catalog, menus and brands" width="800" height="450" loading="lazy">
@@ -335,10 +335,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </button>
                 </div>
-                <div class="dots" id="project-dots"></div>
-                <p class="projects-more">
-                    <a href="https://www.youtube.com/playlist?list=PLHmyYOl9GKA1H8NEQUJZGcy0xsuZLBRz0" target="_blank" rel="noopener">Watch the full demo playlist on YouTube <span aria-hidden="true">&rarr;</span></a>
-                </p>
+                <p class="carousel-count" id="projects-count" aria-live="polite"></p>
             </div>
         </section>
 
@@ -377,7 +374,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </button>
                 </div>
-                <div class="dots" id="skills-dots"></div>
+                <p class="carousel-count" id="skills-count" aria-live="polite"></p>
 
                 <article class="exploring" aria-labelledby="exploring-title">
                     <div class="exploring-intro">
@@ -475,7 +472,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </button>
                 </div>
-                <div class="dots" id="experience-dots"></div>
+                <p class="carousel-count" id="experience-count" aria-live="polite"></p>
                 <p class="details-more">
                     <button type="button" class="details-link" data-details="details-more" aria-haspopup="dialog">Skills, Education &amp; Languages <span aria-hidden="true">&rarr;</span></button>
                 </p>
@@ -552,15 +549,22 @@
             </div>
         </section>
 
+        <!-- The dialog fills the screen; the scrim and panel inside it are what animate -->
         <dialog class="details-dialog" id="details-dialog" aria-labelledby="details-title">
-            <div class="details-head">
-                <span class="details-grabber" aria-hidden="true"></span>
-                <h2 id="details-title"></h2>
-                <button type="button" class="details-close" id="details-close" aria-label="Close details" autofocus>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                </button>
+            <div class="details-scrim" aria-hidden="true"></div>
+            <div class="details-panel" id="details-panel">
+                <div class="details-head">
+                    <span class="details-grabber" aria-hidden="true"></span>
+                    <div class="details-heading">
+                        <h2 id="details-title"></h2>
+                        <p class="details-subtitle" id="details-subtitle"></p>
+                    </div>
+                    <button type="button" class="details-close" id="details-close" aria-label="Close details" autofocus>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                <div class="details-body" id="details-body"></div>
             </div>
-            <div class="details-body" id="details-body"></div>
         </dialog>
 
         <!-- Contact Section -->

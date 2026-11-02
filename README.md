@@ -8,9 +8,9 @@ A modern, responsive static portfolio website showcasing professional experience
 - **Fully Responsive**: Works on desktop, tablet, and mobile devices
 - **Interactive Navigation**: Sticky navbar with smooth scrolling to sections
 - **Mobile Menu**: Hamburger menu for mobile devices
-- **Project Showcase**: Filterable project cards with Previous / Next pages; each filter keeps its own page
-- **Skills Carousel**: Swipe, arrow, dot, and keyboard navigation
-- **Experience Timeline**: Horizontal timeline with an expandable full history
+- **Project Showcase**: Filterable project carousel with Previous / Next arrows, swipe and a position counter; each filter keeps its own position
+- **Skills Carousel**: Swipe, arrow, and keyboard navigation with a position counter
+- **Experience Timeline**: Horizontal timeline (one card at a time on phones) with a details popup per job
 - **Contact Integration**: Quick access to email, phone, LinkedIn, GitHub, and website
 
 ## File Structure
@@ -43,6 +43,13 @@ php -S localhost:8000
 ```
 
 Then navigate to `http://localhost:8000` in your browser.
+
+## Deployment
+
+Pushing to `master` runs `.github/workflows/pages.yml`, which publishes the site to GitHub Pages. It links
+`styles.css` and `script.js` with a `?v=` hash of their contents, so visitors get matching new files right
+after a deploy while unchanged files stay cached. The repository's Pages source must be set to
+**GitHub Actions** (Settings → Pages).
 
 ## Sections
 

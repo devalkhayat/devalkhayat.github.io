@@ -53,74 +53,101 @@ window.addEventListener('scroll', onScroll, { passive: true });
 window.addEventListener('hashchange', onScroll);
 onScroll();
 
-// Builds a row of pagination dots; returns a function that highlights one
-function renderDots(container, count, label, onSelect) {
-    container.replaceChildren();
-    for (let i = 0; i < count; i++) {
-        const dot = document.createElement('button');
-        dot.type = 'button';
-        dot.className = 'dot';
-        dot.setAttribute('aria-label', `${label} ${i + 1} of ${count}`);
-        dot.addEventListener('click', () => onSelect(i));
-        container.appendChild(dot);
-    }
-    container.hidden = count < 2;
 
-    return index => {
-        [...container.children].forEach((dot, i) => {
-            dot.classList.toggle('is-active', i === index);
-            if (i === index) {
-                dot.setAttribute('aria-current', 'true');
-            } else {
-                dot.removeAttribute('aria-current');
+// Distance from an element down to a positioned ancestor, ignoring transforms such as the hover lift
+function offsetTopWithin(element, ancestor) {
+    let top = 0;
+    while (element && element !== ancestor) {
+        top += element.offsetTop;
+        element = element.offsetParent;
+    }
+    return top;
+}
+
+// Carousels: native scroll-snap handles swipes, the arrows step a page and the counter shows where you are
+function createCarousel(name, label) {
+    const track = document.getElementById(`${name}-track`);
+    const carousel = track.closest('.carousel');
+    const prev = document.getElementById(`${name}-prev`);
+    const next = document.getElementById(`${name}-next`);
+    const count = document.getElementById(`${name}-count`);
+    let pageCount = 1;
+    let pageWidth = 1;
+    let perPage = 1;
+    // Index of the first card in view, kept so a resize or a filter change can return to it
+    let anchor = 0;
+    let frozen = false;
+
+    const visibleItems = () => [...track.children].filter(item => !item.hidden);
+
+    function scrollToPage(page) {
+        track.scrollTo({ left: page * pageWidth, behavior: 'smooth' });
+    }
+
+    function currentPage() {
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        if (maxScroll > 0 && track.scrollLeft >= maxScroll - 2) return pageCount - 1;
+        return Math.min(Math.round(track.scrollLeft / pageWidth), pageCount - 1);
+    }
+
+    function updateControls() {
+        // While the width is changing the old page size no longer matches the cards
+        if (frozen) return;
+        const page = currentPage();
+        anchor = page * perPage;
+        prev.disabled = page === 0;
+        next.disabled = page >= pageCount - 1;
+        count.textContent = `${page + 1} / ${pageCount}`;
+        count.setAttribute('aria-label', `${label} ${page + 1} of ${pageCount}`);
+    }
+
+    function setup(startIndex = anchor) {
+        const items = visibleItems();
+        const itemWidth = items.length > 1 ? items[1].offsetLeft - items[0].offsetLeft : track.clientWidth;
+        perPage = Math.max(1, Math.round(track.clientWidth / itemWidth));
+        pageWidth = perPage * itemWidth;
+        pageCount = Math.max(1, Math.ceil(items.length / perPage));
+        track.scrollLeft = Math.min(Math.floor(startIndex / perPage), pageCount - 1) * pageWidth;
+        frozen = false;
+
+        // Arrows line up with the middle of the cards, not the dates under the timeline
+        const card = items[0] && (items[0].querySelector('.timeline-card') || items[0]);
+        if (card) {
+            let arrowY = offsetTopWithin(card, carousel) + card.offsetHeight / 2;
+            // On phones the arrows overlap the card edges, so they stay below a project's screenshot
+            const media = card.querySelector('.project-media');
+            if (media && window.matchMedia('(max-width: 640px)').matches) {
+                arrowY = Math.max(arrowY, offsetTopWithin(media, carousel) + media.offsetHeight + 24);
             }
-        });
+            carousel.style.setProperty('--arrow-y', `${arrowY}px`);
+        }
+        updateControls();
+    }
+
+    prev.addEventListener('click', () => scrollToPage(currentPage() - 1));
+    next.addEventListener('click', () => scrollToPage(currentPage() + 1));
+    track.addEventListener('scroll', updateControls, { passive: true });
+    setup(0);
+
+    return {
+        setup,
+        freeze: () => { frozen = true; },
+        anchor: () => anchor
     };
 }
 
-// Project filters and Previous / Next pages; each filter remembers its own page
+const projectCarousel = createCarousel('projects', 'Project');
+const carousels = [
+    projectCarousel,
+    createCarousel('skills', 'Technologies page'),
+    createCarousel('experience', 'Experience')
+];
+
+// Project filters; each filter remembers where its carousel was left
 const projectCards = [...document.querySelectorAll('.project-card')];
 const filterButtons = document.querySelectorAll('.filter');
-const projectCarousel = document.getElementById('project-carousel');
-const projectPrev = document.getElementById('projects-prev');
-const projectNext = document.getElementById('projects-next');
-const projectDots = document.getElementById('project-dots');
-const projectState = { filter: 'all', pages: {} };
-
-function projectsPerPage() {
-    if (window.matchMedia('(max-width: 640px)').matches) return 1;
-    return window.matchMedia('(max-width: 1024px)').matches ? 2 : 3;
-}
-
-function showProjectPage(page) {
-    projectState.pages[projectState.filter] = page;
-    renderProjects();
-}
-
-function renderProjects() {
-    const matching = projectCards.filter(card =>
-        projectState.filter === 'all' || card.dataset.category === projectState.filter
-    );
-    const perPage = projectsPerPage();
-    const pageCount = Math.ceil(matching.length / perPage);
-    const page = Math.min(projectState.pages[projectState.filter] || 0, pageCount - 1);
-    projectState.pages[projectState.filter] = page;
-
-    const start = page * perPage;
-    const visible = matching.slice(start, start + perPage);
-    projectCards.forEach(card => {
-        card.hidden = !visible.includes(card);
-    });
-
-    projectPrev.disabled = page === 0;
-    projectNext.disabled = page >= pageCount - 1;
-    projectCarousel.classList.toggle('is-single', pageCount < 2);
-    const highlight = renderDots(projectDots, pageCount, 'Projects page', showProjectPage);
-    highlight(page);
-}
-
-projectPrev.addEventListener('click', () => showProjectPage(projectState.pages[projectState.filter] - 1));
-projectNext.addEventListener('click', () => showProjectPage(projectState.pages[projectState.filter] + 1));
+const projectAnchors = {};
+let projectFilter = 'all';
 
 filterButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -129,64 +156,16 @@ filterButtons.forEach(button => {
             other.classList.toggle('is-active', isSelected);
             other.setAttribute('aria-pressed', String(isSelected));
         });
-        projectState.filter = button.dataset.filter;
-        renderProjects();
+        projectAnchors[projectFilter] = projectCarousel.anchor();
+        projectFilter = button.dataset.filter;
+        projectCards.forEach(card => {
+            card.hidden = projectFilter !== 'all' && card.dataset.category !== projectFilter;
+        });
+        projectCarousel.setup(projectAnchors[projectFilter] || 0);
         // On mobile the chip may be partly off-screen in the scrolling row
         button.scrollIntoView({ block: 'nearest', inline: 'nearest' });
     });
 });
-
-renderProjects();
-
-// Carousels: native scroll-snap handles touch, the buttons and dots drive it
-function createCarousel(name, dotLabel) {
-    const track = document.getElementById(`${name}-track`);
-    const prev = document.getElementById(`${name}-prev`);
-    const next = document.getElementById(`${name}-next`);
-    const dots = document.getElementById(`${name}-dots`);
-    let highlightDot = () => {};
-    let pageCount = 1;
-    let pageWidth = 1;
-
-    function scrollToPage(page) {
-        track.scrollTo({ left: page * pageWidth, behavior: 'smooth' });
-    }
-
-    function currentPage() {
-        const maxScroll = track.scrollWidth - track.clientWidth;
-        if (track.scrollLeft >= maxScroll - 2) return pageCount - 1;
-        return Math.round(track.scrollLeft / pageWidth);
-    }
-
-    function updateControls() {
-        const page = currentPage();
-        highlightDot(page);
-        prev.disabled = page === 0;
-        next.disabled = page >= pageCount - 1;
-    }
-
-    function setup() {
-        const items = track.children;
-        const itemWidth = items[1].offsetLeft - items[0].offsetLeft;
-        const perPage = Math.max(1, Math.round(track.clientWidth / itemWidth));
-        pageWidth = perPage * itemWidth;
-        pageCount = Math.ceil(items.length / perPage);
-        highlightDot = renderDots(dots, pageCount, dotLabel, scrollToPage);
-        updateControls();
-    }
-
-    prev.addEventListener('click', () => scrollToPage(currentPage() - 1));
-    next.addEventListener('click', () => scrollToPage(currentPage() + 1));
-    track.addEventListener('scroll', updateControls, { passive: true });
-    setup();
-
-    return setup;
-}
-
-const carouselSetups = [
-    createCarousel('skills', 'Technologies page'),
-    createCarousel('experience', 'Experience page')
-];
 
 // Fade cards in as they enter the view; the delay staggers neighbouring cards
 const revealObserver = new IntersectionObserver(entries => {
@@ -210,21 +189,29 @@ document.querySelectorAll('.project-grid, .carousel-track, .timeline, .contact-c
 
 // Experience details popup: copies the matching hidden card into a dialog
 const detailsDialog = document.getElementById('details-dialog');
+const detailsPanel = document.getElementById('details-panel');
 const detailsTitle = document.getElementById('details-title');
+const detailsSubtitle = document.getElementById('details-subtitle');
 const detailsBody = document.getElementById('details-body');
+const detailsScrim = detailsDialog.querySelector('.details-scrim');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let detailsTrigger = null;
+let closeTimer = null;
 
 function openDetails(sourceId, trigger) {
     if (detailsDialog.open) return;
     const source = document.getElementById(sourceId);
-    const cards = source.matches('.detail-card') ? [source] : [...source.querySelectorAll('.detail-card')];
-    // A single job uses its company name as the title; a group keeps each card's heading
-    detailsTitle.textContent = source.dataset.title || cards[0].querySelector('h3').textContent;
+    const single = source.matches('.detail-card');
+    const cards = single ? [source] : [...source.querySelectorAll('.detail-card')];
+    // A single job puts its company and role line in the header; a group keeps each card's heading
+    detailsTitle.textContent = single ? source.querySelector('h3').textContent : source.dataset.title;
+    detailsSubtitle.textContent = single ? source.querySelector('.detail-meta').textContent : '';
+    detailsSubtitle.hidden = !single;
     detailsBody.replaceChildren(...cards.map(card => {
         const section = document.createElement('section');
         section.className = 'details-section';
         [...card.children].forEach(child => {
-            if (cards.length > 1 || !child.matches('h3')) {
+            if (!single || !child.matches('h3, .detail-meta')) {
                 section.append(child.cloneNode(true));
             }
         });
@@ -235,24 +222,61 @@ function openDetails(sourceId, trigger) {
     // Locking the page hides its scrollbar, so padding takes its place and nothing shifts
     document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
     document.documentElement.classList.add('dialog-open');
+    const pageY = window.scrollY;
     detailsDialog.showModal();
+    // Browsers without overflow: clip may still scroll to the focused close button; undo that
+    detailsDialog.scrollTop = 0;
+    if (window.scrollY !== pageY) window.scrollTo(0, pageY);
     detailsBody.scrollTop = 0;
+    if (reducedMotion.matches) {
+        detailsDialog.classList.add('is-open');
+        return;
+    }
+    // Browsers only draw what is on screen. The panel is drawn once where it will end up, almost transparent,
+    // then moved to its start and slid in; without this the first frames of the slide show nothing
+    detailsDialog.classList.add('is-preparing');
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (!detailsDialog.open || closeTimer) return;
+        detailsPanel.style.transition = 'none';
+        detailsDialog.classList.remove('is-preparing');
+        detailsPanel.getBoundingClientRect();
+        detailsPanel.style.transition = '';
+        requestAnimationFrame(() => {
+            if (detailsDialog.open && !closeTimer) detailsDialog.classList.add('is-open');
+        });
+    }));
+}
+
+// The panel animates out first; the dialog only closes once that has finished
+function closeDetails() {
+    if (!detailsDialog.open || closeTimer) return;
+    detailsDialog.classList.remove('is-open', 'is-preparing');
+    detailsPanel.style.transform = '';
+    detailsScrim.style.opacity = '';
+    if (reducedMotion.matches) {
+        detailsDialog.close();
+        return;
+    }
+    const finish = () => {
+        detailsPanel.removeEventListener('transitionend', onEnd);
+        clearTimeout(closeTimer);
+        closeTimer = null;
+        detailsDialog.close();
+    };
+    const onEnd = event => {
+        if (event.target === detailsPanel && event.propertyName === 'transform') finish();
+    };
+    detailsPanel.addEventListener('transitionend', onEnd);
+    // In case the transition is skipped, for example in a background tab
+    closeTimer = setTimeout(finish, 450);
 }
 
 document.querySelectorAll('[data-details]').forEach(link => {
     link.addEventListener('click', () => openDetails(link.dataset.details, link));
 });
 
-// The bottom sheet slides away before the dialog really closes; with no exit animation it closes at once
-function closeDetails() {
-    if (!detailsDialog.open || detailsDialog.classList.contains('is-closing')) return;
-    detailsDialog.classList.add('is-closing');
-    Promise.all(detailsDialog.getAnimations().map(animation => animation.finished))
-        .catch(() => {})
-        .then(() => detailsDialog.close());
-}
-
 document.getElementById('details-close').addEventListener('click', closeDetails);
+detailsScrim.addEventListener('click', closeDetails);
 
 // Escape would close the dialog instantly, so it goes through the same animation
 detailsDialog.addEventListener('cancel', event => {
@@ -260,49 +284,51 @@ detailsDialog.addEventListener('cancel', event => {
     closeDetails();
 });
 
-// A click that lands on the dialog itself is on the backdrop outside the panel
-detailsDialog.addEventListener('click', event => {
-    if (event.target === detailsDialog) {
-        closeDetails();
-    }
-});
-
 detailsDialog.addEventListener('close', () => {
     document.documentElement.classList.remove('dialog-open');
     document.body.style.paddingRight = '';
-    detailsDialog.classList.remove('is-closing');
-    detailsDialog.style.transform = '';
+    detailsDialog.classList.remove('is-open', 'is-preparing');
+    detailsPanel.style.transform = '';
+    detailsPanel.style.transition = '';
+    detailsScrim.style.opacity = '';
+    detailsScrim.style.transition = '';
     if (detailsTrigger) {
         detailsTrigger.focus({ preventScroll: true });
         detailsTrigger = null;
     }
 });
 
-// Bottom sheet: dragging the header down far enough closes it
+// Bottom sheet: the header follows the finger; a long or quick pull down closes it
 const detailsHead = detailsDialog.querySelector('.details-head');
-let dragStart = null;
+let drag = null;
 
 detailsHead.addEventListener('pointerdown', event => {
-    if (!window.matchMedia('(max-width: 640px)').matches || event.target.closest('button')) return;
-    dragStart = event.clientY;
+    if (!window.matchMedia('(max-width: 640px)').matches || event.target.closest('button') || closeTimer) return;
+    drag = { y: event.clientY, time: event.timeStamp, distance: 0 };
     detailsHead.setPointerCapture(event.pointerId);
-    detailsDialog.style.transition = 'none';
+    detailsPanel.style.transition = 'none';
+    detailsScrim.style.transition = 'none';
 });
 
 detailsHead.addEventListener('pointermove', event => {
-    if (dragStart === null) return;
-    detailsDialog.style.transform = `translateY(${Math.max(0, event.clientY - dragStart)}px)`;
+    if (!drag) return;
+    drag.distance = Math.max(0, event.clientY - drag.y);
+    detailsPanel.style.transform = `translateY(${drag.distance}px)`;
+    detailsScrim.style.opacity = String(1 - Math.min(1, drag.distance / detailsPanel.offsetHeight));
 });
 
 function endDrag(event) {
-    if (dragStart === null) return;
-    const distance = event.clientY - dragStart;
-    dragStart = null;
-    detailsDialog.style.transition = '';
-    if (distance > 80) {
+    if (!drag) return;
+    const speed = drag.distance / Math.max(1, event.timeStamp - drag.time);
+    const shouldClose = drag.distance > 80 || (drag.distance > 24 && speed > 0.5);
+    drag = null;
+    detailsPanel.style.transition = '';
+    detailsScrim.style.transition = '';
+    if (shouldClose) {
         closeDetails();
     } else {
-        detailsDialog.style.transform = '';
+        detailsPanel.style.transform = '';
+        detailsScrim.style.opacity = '';
     }
 }
 
@@ -314,15 +340,18 @@ if (window.location.hash === '#education') {
     openDetails('details-more', null);
 }
 
+// Web fonts and late images can change card heights, which moves the arrows' centre line
+document.fonts.ready.then(() => carousels.forEach(carousel => carousel.setup()));
+window.addEventListener('load', () => carousels.forEach(carousel => carousel.setup()));
+
 let resizeTimer;
 let lastWidth = window.innerWidth;
 window.addEventListener('resize', () => {
-    // A phone's address bar changes the height while scrolling; rebuilding then makes the dots flicker
+    // A phone's address bar changes the height while scrolling; that needs no rebuild
     if (window.innerWidth === lastWidth) return;
     lastWidth = window.innerWidth;
+    // Keep each carousel's first card until the new layout has settled, then return to it
+    carousels.forEach(carousel => carousel.freeze());
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-        renderProjects();
-        carouselSetups.forEach(setup => setup());
-    }, 150);
+    resizeTimer = setTimeout(() => carousels.forEach(carousel => carousel.setup()), 150);
 });

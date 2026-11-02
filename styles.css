@@ -471,13 +471,28 @@ button {
     color: #ffffff;
 }
 
+/* Projects scroll sideways like the other carousels; filtered-out cards are hidden */
 .project-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
+    --projects-visible: 3;
+    --projects-gap: 24px;
+    display: flex;
+    flex: 1;
+    gap: var(--projects-gap);
+    min-width: 0;
+    padding: 10px 4px 14px; /* room for the hover lift and shadow */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 4px;
+    scrollbar-width: none;
+}
+
+.project-grid::-webkit-scrollbar {
+    display: none;
 }
 
 .project-card {
+    flex: 0 0 calc((100% - (var(--projects-visible) - 1) * var(--projects-gap)) / var(--projects-visible));
+    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -614,53 +629,18 @@ button {
     color: #3d4966;
 }
 
-.projects-more {
-    margin-top: 20px;
-    text-align: center;
-    color: var(--primary-color);
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-/* Pagination dots */
-.dots {
-    display: flex;
-    justify-content: center;
-    gap: 2px;
-    margin-top: 12px;
-}
-
-.dot {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-}
-
-.dot::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #c9d8f3;
-    transition: background-color 0.2s ease;
-}
-
-.dot.is-active::before {
-    background: var(--primary-color);
-}
-
-/* Skills carousel */
+/* Carousels (projects, skills, experience): arrows sit beside the track, level with the middle of the cards */
 .carousel {
+    position: relative;
     display: flex;
-    align-items: center;
-    gap: 12px;
+    padding: 0 56px;
 }
 
 .carousel-arrow {
+    position: absolute;
+    top: var(--arrow-y, 50%);
+    z-index: 1;
     display: flex;
-    flex-shrink: 0;
     align-items: center;
     justify-content: center;
     width: 44px;
@@ -670,6 +650,15 @@ button {
     background: var(--bg-primary);
     color: var(--primary-color);
     box-shadow: var(--shadow-sm);
+    transform: translateY(-50%);
+}
+
+.carousel-arrow:first-child {
+    left: 0;
+}
+
+.carousel-arrow:last-child {
+    right: 0;
 }
 
 .carousel-arrow:disabled {
@@ -678,27 +667,13 @@ button {
     box-shadow: none;
 }
 
-/* Project arrows sit under the grid beside the dots, so the cards keep their full width */
-.project-carousel {
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 12px 0;
-}
-
-.project-carousel .project-grid {
-    flex: 0 0 100%;
-    order: -1;
-}
-
-.project-carousel + .dots {
-    position: relative;
-    align-items: center;
-    min-height: 44px;
-    margin: -44px 52px 0;
-}
-
-.project-carousel.is-single .carousel-arrow {
-    display: none;
+.carousel-count {
+    margin-top: 2px;
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
 }
 
 .carousel-track {
@@ -949,29 +924,83 @@ button {
     text-align: center;
 }
 
-/* Centred dialog on larger screens; a bottom sheet on phones */
+/* The dialog covers the screen; its own scrim and panel animate with transforms and opacity, which
+   behave the same in every browser (unlike ::backdrop). Centred on larger screens, a bottom sheet on phones */
 .details-dialog {
-    width: min(640px, calc(100% - 48px));
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     max-width: none;
-    max-height: min(85vh, 760px);
-    margin: auto;
+    max-height: none;
+    margin: 0;
     padding: 0;
+    /* clip, not hidden: a hidden box can still be scrolled, and focusing the close button while the
+       sheet is below the screen would scroll it into view and make the sheet jump */
     overflow: hidden;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    background: var(--bg-primary);
+    overflow: clip;
+    border: 0;
+    background: transparent;
     color: var(--text-secondary);
-    box-shadow: 0 24px 64px rgba(10, 18, 64, 0.18);
-    transition: transform 0.2s ease;
 }
 
 .details-dialog[open] {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .details-dialog::backdrop {
+    background: transparent;
+}
+
+.details-scrim {
+    position: absolute;
+    inset: 0;
     background: rgba(10, 18, 64, 0.45);
+    opacity: 0;
+    touch-action: none;
+    transition: opacity 0.25s ease;
+}
+
+.details-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(640px, calc(100% - 48px));
+    max-height: min(85vh, 760px);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--bg-primary);
+    box-shadow: 0 24px 64px rgba(10, 18, 64, 0.18);
+    opacity: 0;
+    transform: scale(0.96);
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Own layers, drawn while still hidden, so the first moving frame doesn't wait for the panel to render */
+.details-dialog[open] .details-scrim {
+    will-change: opacity;
+}
+
+.details-dialog[open] .details-panel {
+    will-change: transform, opacity;
+}
+
+.details-dialog.is-preparing .details-panel {
+    opacity: 0.01;
+    transform: none;
+    transition: none;
+}
+
+.details-dialog.is-open .details-scrim,
+.details-dialog.is-open .details-panel {
+    opacity: 1;
+}
+
+.details-dialog.is-open .details-panel {
+    transform: none;
 }
 
 .details-head {
@@ -979,17 +1008,30 @@ button {
     display: flex;
     flex-shrink: 0;
     align-items: flex-start;
-    gap: 12px;
-    padding: 20px 16px 12px 28px;
+    gap: 16px;
+    padding: 22px 20px 18px 28px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.details-heading {
+    flex: 1;
+    min-width: 0;
+    padding-top: 4px;
 }
 
 .details-head h2 {
-    flex: 1;
-    padding-top: 8px;
     font-size: 1.35rem;
     font-weight: 800;
     line-height: 1.3;
     color: var(--heading-color);
+}
+
+.details-subtitle {
+    margin-top: 4px;
+    color: var(--primary-dark);
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.45;
 }
 
 .details-grabber {
@@ -1001,27 +1043,30 @@ button {
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border-color);
     border-radius: 50%;
+    background: var(--bg-secondary);
     color: var(--text-secondary);
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
-/* Drawn inside the button so the panel's rounded edge can't clip it */
+/* Drawn inside the button so the panel's edge can't clip it */
 .details-close:focus-visible {
     outline-offset: -3px;
 }
 
 .details-close:hover {
-    background: var(--bg-secondary);
+    border-color: var(--line-color);
+    background: var(--primary-soft);
     color: var(--heading-color);
 }
 
 .details-body {
     overflow-y: auto;
     overscroll-behavior: contain;
-    padding: 0 28px 28px;
+    padding: 20px 28px 28px;
     font-size: 0.95rem;
 }
 
@@ -1216,29 +1261,6 @@ a.contact-card:hover {
     }
 }
 
-@keyframes sheet-in {
-    from {
-        transform: translateY(100%);
-    }
-}
-
-@keyframes sheet-out {
-    to {
-        transform: translateY(100%);
-    }
-}
-
-@keyframes backdrop-in {
-    from {
-        opacity: 0;
-    }
-}
-
-@keyframes backdrop-out {
-    to {
-        opacity: 0;
-    }
-}
 
 /* Footer */
 .footer {
@@ -1263,7 +1285,7 @@ a.contact-card:hover {
     }
 }
 
-/* The filters and View All no longer fit on one row, so the filters take their own */
+/* The filters no longer fit beside the heading, so they take their own row */
 @media (max-width: 1160px) {
     .nav-menu {
         gap: 24px;
@@ -1279,7 +1301,7 @@ a.contact-card:hover {
 /* Tablet */
 @media (max-width: 1024px) {
     .project-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        --projects-visible: 2;
     }
 
     .carousel-track {
@@ -1374,8 +1396,9 @@ a.contact-card:hover {
         font-size: 1.65rem;
     }
 
+    /* One experience card at a time on phones, including wide ones and landscape */
     .timeline {
-        --timeline-visible: 2;
+        --timeline-visible: 1;
     }
 
     .carousel-track {
@@ -1430,33 +1453,33 @@ a.contact-card:hover {
 }
 
 @media (max-width: 640px) {
+    /* On phones the stats come before the buttons; the HTML order stays for desktop */
+    .hero-text {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hero-greeting {
+        align-self: flex-start;
+    }
+
+    .hero-stats {
+        margin-top: 24px;
+    }
+
+    .hero-buttons {
+        order: 1;
+        margin-top: 24px;
+    }
+
+    /* One project at a time; a fling still stops on the next card */
     .project-grid {
-        grid-template-columns: minmax(0, 1fr);
+        --projects-visible: 1;
     }
 
-    .timeline {
-        --timeline-visible: 1;
-    }
-
-    /* One project per page; all cards share one cell so the arrows stay put from page to page */
-    .project-card {
-        grid-area: 1 / 1;
-    }
-
-    .project-card[hidden] {
-        display: flex !important;
-        visibility: hidden;
-    }
-
-    /* The dots narrow so a long category still fits between the arrows */
-    .project-carousel + .dots {
-        gap: 0;
-    }
-
-    .project-carousel + .dots .dot {
-        flex: 0 1 24px;
-        width: auto;
-        min-width: 0;
+    .project-card,
+    .timeline-item {
+        scroll-snap-stop: always;
     }
 
     .project-body h3 {
@@ -1493,24 +1516,55 @@ a.contact-card:hover {
         white-space: nowrap;
     }
 
-    /* Arrows move under the track and share a row with the dots, so cards get the full width */
+    /* Cards keep the full width: the arrows straddle the edge, half in the page margin and half over
+       the cards' empty padding. The button stays a 40x44 touch target around a smaller visible circle */
     .carousel {
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 4px 0;
+        padding: 0;
     }
 
-    .carousel-track,
-    .timeline {
-        flex: 0 0 100%;
-        order: -1;
+    .carousel-arrow {
+        width: 40px;
+        border: 0;
+        background: none;
+        box-shadow: none;
     }
 
-    .carousel + .dots {
+    .carousel-arrow::before {
+        content: '';
+        position: absolute;
+        inset: 6px 4px;
+        border: 1px solid var(--border-color);
+        border-radius: 50%;
+        background: var(--bg-primary);
+        box-shadow: var(--shadow-md);
+    }
+
+    .carousel-arrow:disabled::before {
+        box-shadow: none;
+    }
+
+    .carousel-arrow svg {
         position: relative;
-        align-items: center;
-        min-height: 44px;
-        margin: -44px 52px 0;
+        width: 16px;
+        height: 16px;
+    }
+
+    .carousel-arrow:first-child {
+        left: -16px;
+    }
+
+    .carousel-arrow:last-child {
+        right: -16px;
+    }
+
+    /* The focus ring follows the visible circle */
+    .carousel-arrow:focus-visible {
+        outline: 0;
+    }
+
+    .carousel-arrow:focus-visible::before {
+        outline: 3px solid var(--primary-color);
+        outline-offset: 2px;
     }
 
     .timeline-card {
@@ -1541,17 +1595,14 @@ a.contact-card:hover {
         opacity: 1;
     }
 
-    .project-card.reveal.is-visible {
-        animation-name: card-rise;
-        animation-delay: 0s;
-    }
-
     /* Cards sliding in from the side don't rise as well, only the ones showing first */
+    .project-card.reveal.is-visible,
     .skill-card.reveal.is-visible,
     .timeline-card.reveal.is-visible {
         animation: none;
     }
 
+    .project-card.reveal.is-visible:first-child,
     .skill-card.reveal.is-visible:nth-child(-n + 2),
     .timeline-item:first-child .timeline-card.reveal.is-visible {
         animation: card-rise 0.5s ease;
@@ -1565,40 +1616,38 @@ a.contact-card:hover {
         padding-top: 4px;
     }
 
-    /* The popup becomes a bottom sheet; dragging its header down closes it */
-    .details-dialog {
+    /* The popup becomes a bottom sheet that slides up; dragging its header down closes it.
+       svh rather than dvh, so the sheet doesn't resize when the address bar shows or hides */
+    .details-dialog[open] {
+        align-items: flex-end;
+    }
+
+    .details-scrim {
+        transition-duration: 0.3s;
+    }
+
+    .details-panel {
         width: 100%;
-        max-height: 85vh;
-        max-height: 85dvh;
-        margin: auto 0 0;
+        max-height: 88vh;
+        max-height: 88svh;
         border-bottom: 0;
         border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-    }
-
-    .details-dialog[open] {
-        animation: sheet-in 0.32s cubic-bezier(0.32, 0.72, 0, 1);
-    }
-
-    .details-dialog[open]::backdrop {
-        animation: backdrop-in 0.32s ease;
-    }
-
-    /* Kept at the end state until the script closes the dialog, so it can't flash back */
-    .details-dialog.is-closing {
-        animation: sheet-out 0.26s cubic-bezier(0.4, 0, 1, 1) forwards;
-    }
-
-    .details-dialog.is-closing::backdrop {
-        animation: backdrop-out 0.26s ease forwards;
+        opacity: 1;
+        transform: translateY(100%);
+        transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
     }
 
     .details-head {
-        padding: 20px 8px 8px 20px;
+        padding: 24px 12px 14px 20px;
         touch-action: none;
     }
 
     .details-head h2 {
         font-size: 1.2rem;
+    }
+
+    .details-subtitle {
+        font-size: 0.85rem;
     }
 
     .details-grabber {
@@ -1614,11 +1663,11 @@ a.contact-card:hover {
     }
 
     .details-body {
-        padding: 0 20px max(20px, env(safe-area-inset-bottom));
+        padding: 16px 20px max(24px, env(safe-area-inset-bottom));
         font-size: 0.9375rem;
     }
 
-    /* Two skills show at a time, so swipes stop on whole pages and match the dots */
+    /* Two skills show at a time, so swipes stop on whole pages and match the counter */
     .skill-card:nth-child(even) {
         scroll-snap-align: none;
     }
@@ -1673,6 +1722,7 @@ a.contact-card:hover {
     }
 
     .hero-greeting {
+        align-self: center;
         margin-bottom: 6px;
     }
 
@@ -1695,7 +1745,7 @@ a.contact-card:hover {
     .hero-buttons {
         justify-content: center;
         gap: 10px;
-        margin-top: 18px;
+        margin-top: 20px;
     }
 
     .hero-buttons .btn {
@@ -1706,7 +1756,7 @@ a.contact-card:hover {
     }
 
     .hero-stats {
-        margin-top: 18px;
+        margin-top: 16px;
     }
 
     /* Platforms takes its own centred row under the other two stats */
