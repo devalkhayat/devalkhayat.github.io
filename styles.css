@@ -394,13 +394,97 @@ button {
     color: var(--primary-color);
 }
 
-.hero-stats small {
-    display: block;
-    font-size: 0.75rem;
+/* "Have an idea?" link to Contact: fades up once on load; its underline breathes slowly */
+.hero-cta {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 6px;
+    border-radius: var(--radius-md);
+    color: var(--heading-color);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: transform 0.15s ease;
+    animation: cta-in 0.5s ease 0.15s backwards;
+}
+
+/* On narrow screens the line breaks only between the question and the phrase */
+.hero-cta-lead {
+    white-space: nowrap;
+}
+
+.hero-cta strong {
+    font-weight: 700;
+}
+
+.hero-cta-highlight {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: underline 2px;
+    text-decoration-color: rgba(11, 99, 246, 0.3);
+    text-underline-offset: 5px;
+    /* The phrase and its arrow wrap as one piece */
+    white-space: nowrap;
+    animation: cta-underline 2.4s ease-in-out infinite alternate;
+}
+
+.hero-cta svg {
+    display: inline-block;
+    margin-left: 6px;
+    vertical-align: -0.15em;
+    transition: transform 0.2s ease;
+}
+
+.hero-cta:hover svg,
+.hero-cta:focus-visible svg {
+    transform: translateX(4px);
+}
+
+.hero-cta:hover .hero-cta-highlight {
+    text-decoration-thickness: 3px;
+    text-decoration-color: var(--primary-color);
+    animation-play-state: paused;
+}
+
+.hero-cta:active {
+    transform: scale(0.97);
+}
+
+@keyframes cta-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+}
+
+@keyframes cta-underline {
+    to {
+        text-decoration-color: rgba(11, 99, 246, 0.9);
+    }
+}
+
+/* Phones show the stats as cards with these icons */
+.stat-icon {
+    display: none;
 }
 
 .hero-platforms {
-    display: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.hero-platforms li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: var(--primary-soft);
+    color: var(--primary-dark);
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.4;
 }
 
 .contact-icon {
@@ -1271,7 +1355,7 @@ a.contact-card:hover {
     text-align: center;
 }
 
-/* The four hero stats stop fitting on one row, so they become a 2x2 grid */
+/* Below this width the hero text column narrows, so the stats sit in a plain two-column grid */
 @media (max-width: 1240px) {
     .hero-stats {
         display: grid;
@@ -1463,13 +1547,54 @@ a.contact-card:hover {
         align-self: flex-start;
     }
 
+    /* Two equal stat cards: icon, then the number over its label */
     .hero-stats {
-        margin-top: 24px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .hero-stats li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        background: var(--bg-primary);
+        box-shadow: var(--shadow-sm);
+        font-size: 0.8rem;
+        text-align: left;
+    }
+
+    .hero-stats strong {
+        font-size: 1.3rem;
+        line-height: 1.2;
+    }
+
+    .stat-icon {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--primary-soft);
+        color: var(--primary-color);
+    }
+
+    /* Stats, then the "Have an idea?" link, then the buttons */
+    .hero-cta {
+        order: 1;
+        align-self: flex-start;
+        margin-top: 10px;
+        font-size: 0.9rem;
     }
 
     .hero-buttons {
-        order: 1;
-        margin-top: 24px;
+        order: 2;
+        margin-top: 8px;
     }
 
     /* One project at a time; a fling still stops on the next card */
@@ -1741,11 +1866,15 @@ a.contact-card:hover {
         font-size: 1rem;
     }
 
+    .hero-cta {
+        align-self: center;
+    }
+
     /* Buttons keep their own width and centre, wrapping only when both don't fit */
     .hero-buttons {
         justify-content: center;
         gap: 10px;
-        margin-top: 20px;
+        margin-top: 8px;
     }
 
     .hero-buttons .btn {
@@ -1755,35 +1884,25 @@ a.contact-card:hover {
         font-size: 0.875rem;
     }
 
+    .hero-platforms {
+        justify-content: center;
+        gap: 6px;
+        margin-top: 14px;
+    }
+
+    .hero-platforms li {
+        gap: 4px;
+        padding: 4px 9px;
+        font-size: 0.75rem;
+    }
+
     .hero-stats {
         margin-top: 16px;
     }
 
-    /* Platforms takes its own centred row under the other two stats */
-    .hero-stats li:last-child {
-        grid-column: 1 / -1;
-    }
-
-    .hero-stats small {
-        display: none;
-    }
-
-    .hero-platforms {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px;
-        max-width: 148px;
-        margin: 6px auto 0;
-    }
-
-    .hero-platforms span {
-        padding: 3px 4px;
-        border-radius: 999px;
-        background: var(--primary-soft);
-        color: var(--primary-dark);
-        font-size: 0.75rem;
-        font-weight: 500;
-        white-space: nowrap;
+    .hero-stats li {
+        gap: 8px;
+        padding: 10px;
     }
 
     .section-head-projects .filters {
@@ -1816,11 +1935,6 @@ a.contact-card:hover {
         font-size: 0.78rem;
     }
 
-    .hero-stats {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-    }
-
     .container {
         padding-left: 16px;
         padding-right: 16px;
@@ -1848,6 +1962,15 @@ a.contact-card:hover {
         min-height: 44px;
         padding: 8px 12px;
         font-size: 0.8125rem;
+    }
+}
+
+/* The four platform tags no longer fit on one row, so they split evenly two and two */
+@media (max-width: 374px) {
+    .hero-platforms {
+        max-width: 200px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
