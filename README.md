@@ -49,7 +49,7 @@ Then navigate to `http://localhost:8000` in your browser.
 1. **Hero**: Name, title, introduction, and key statistics
 2. **Selected Work**: Projects filterable by industry
 3. **My Main Technologies**: Skills carousel
-4. **Work Experience**: Horizontal timeline; the full view adds detailed history, skills, education, and languages
+4. **Work Experience**: Horizontal timeline; each card's Show Details opens a popup (a bottom sheet on phones), and a separate link opens skills, education, and languages
 5. **Get In Touch**: Contact details and social links
 
 ## Technologies Used

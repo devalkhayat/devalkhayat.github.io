@@ -98,9 +98,6 @@
                         <button type="button" class="filter" data-filter="business" aria-pressed="false">Business Management</button>
                         <button type="button" class="filter" data-filter="other" aria-pressed="false">Other</button>
                     </div>
-                    <button type="button" class="btn-link" id="projects-toggle" aria-expanded="false">
-                        <span>View All Projects</span> <span aria-hidden="true">&rarr;</span>
-                    </button>
                 </div>
 
                 <div class="project-grid" id="project-grid" aria-live="polite">
@@ -331,7 +328,7 @@
                     </article>
                 </div>
                 <div class="dots" id="project-dots"></div>
-                <p class="projects-more" id="projects-more" hidden>
+                <p class="projects-more">
                     <a href="https://www.youtube.com/playlist?list=PLHmyYOl9GKA1H8NEQUJZGcy0xsuZLBRz0" target="_blank" rel="noopener">Watch the full demo playlist on YouTube <span aria-hidden="true">&rarr;</span></a>
                 </p>
             </div>
@@ -403,9 +400,6 @@
                         <p class="eyebrow">Professional Experience</p>
                         <h2 class="section-title">Work Experience</h2>
                     </div>
-                    <button type="button" class="btn-link" id="experience-toggle" aria-expanded="false" aria-controls="experience-full">
-                        <span>View Full Experience</span> <span aria-hidden="true">&rarr;</span>
-                    </button>
                 </div>
 
                 <div class="carousel">
@@ -419,6 +413,7 @@
                             <p class="timeline-place">Saudi Arabia &middot; Remote</p>
                             <p class="job-title">Mobile &amp; Full-Stack Developer</p>
                             <p>Developed and published two Flutter apps and .NET 10 / SQL Server APIs; integrated MyFatoorah payments.</p>
+                            <button type="button" class="details-link" data-details="details-ecomflow" aria-haspopup="dialog" aria-label="Show details for EcomFlow">Show Details <span aria-hidden="true">&rarr;</span></button>
                         </article>
                         <span class="timeline-marker" aria-hidden="true"></span>
                         <p class="timeline-date">Jan 2026 &ndash; Present</p>
@@ -429,6 +424,7 @@
                             <p class="timeline-place">Remote</p>
                             <p class="job-title">Mobile Developer</p>
                             <p>Built Flutter and native Android apps using Clean Architecture, BLoC, Kotlin and Jetpack Compose.</p>
+                            <button type="button" class="details-link" data-details="details-independent" aria-haspopup="dialog" aria-label="Show details for Independent">Show Details <span aria-hidden="true">&rarr;</span></button>
                         </article>
                         <span class="timeline-marker" aria-hidden="true"></span>
                         <p class="timeline-date">Oct 2023 &ndash; Jan 2026</p>
@@ -439,6 +435,7 @@
                             <p class="timeline-place">Egypt &middot; Remote</p>
                             <p class="job-title">Android Developer</p>
                             <p>Delivered Kotlin e-commerce and clinic apps using MVVM/MVI and published them to Google Play.</p>
+                            <button type="button" class="details-link" data-details="details-techcubics" aria-haspopup="dialog" aria-label="Show details for TECHCUBICS">Show Details <span aria-hidden="true">&rarr;</span></button>
                         </article>
                         <span class="timeline-marker" aria-hidden="true"></span>
                         <p class="timeline-date">Sep 2022 &ndash; Sep 2023</p>
@@ -449,6 +446,7 @@
                             <p class="timeline-place">Germany &middot; Remote</p>
                             <p class="job-title">Android Developer</p>
                             <p>Built an Android news app for a golf publication and redesigned a chat app's UI.</p>
+                            <button type="button" class="details-link" data-details="details-codeevoo" aria-haspopup="dialog" aria-label="Show details for CODEEVOO">Show Details <span aria-hidden="true">&rarr;</span></button>
                         </article>
                         <span class="timeline-marker" aria-hidden="true"></span>
                         <p class="timeline-date">Mar 2021 &ndash; Apr 2022</p>
@@ -459,6 +457,7 @@
                             <p class="timeline-place">Egypt</p>
                             <p class="job-title">Co-Founder &amp; Full-Stack Developer</p>
                             <p>Led mobile, backend and design teams; built Android apps and C# / SQL Server backends.</p>
+                            <button type="button" class="details-link" data-details="details-imatch" aria-haspopup="dialog" aria-label="Show details for iMATCH">Show Details <span aria-hidden="true">&rarr;</span></button>
                         </article>
                         <span class="timeline-marker" aria-hidden="true"></span>
                         <p class="timeline-date">Mar 2017 &ndash; Jan 2021</p>
@@ -469,10 +468,13 @@
                 </button>
                 </div>
                 <div class="dots" id="experience-dots"></div>
+                <p class="details-more">
+                    <button type="button" class="details-link" data-details="details-more" aria-haspopup="dialog">Skills, Education &amp; Languages <span aria-hidden="true">&rarr;</span></button>
+                </p>
 
-                <div class="experience-full" id="experience-full" hidden>
-                    <div class="detail-grid">
-                        <article class="detail-card">
+                <!-- Content for the details popup; script.js copies the matching card into it -->
+                <div id="experience-details" hidden>
+                        <article class="detail-card" id="details-ecomflow">
                             <h3>EcomFlow</h3>
                             <p class="detail-meta">Mobile &amp; Full-Stack Developer &middot; Saudi Arabia (Remote) &middot; Jan 2026 &ndash; Present</p>
                             <ul>
@@ -481,7 +483,7 @@
                                 <li>Strengthened security and reduced database reads by 45&ndash;800&times; in selected workloads; used Claude Code and ChatGPT for development, debugging and testing.</li>
                             </ul>
                         </article>
-                        <article class="detail-card">
+                        <article class="detail-card" id="details-independent">
                             <h3>Independent</h3>
                             <p class="detail-meta">Mobile Developer &middot; Remote &middot; Oct 2023 &ndash; Jan 2026</p>
                             <ul>
@@ -490,7 +492,7 @@
                                 <li>Created multi-module Jetpack Compose Marvel app with Paging 3, Hilt and type-safe navigation.</li>
                             </ul>
                         </article>
-                        <article class="detail-card">
+                        <article class="detail-card" id="details-techcubics">
                             <h3>TECHCUBICS</h3>
                             <p class="detail-meta">Android Developer &middot; Egypt (Remote) &middot; Sep 2022 &ndash; Sep 2023</p>
                             <ul>
@@ -500,7 +502,7 @@
                             </ul>
                             <p class="detail-tech"><strong>Tech Stack:</strong> Kotlin, Retrofit, MVVM, MVI, Coroutines, Koin, Multi-module Architecture, Navigation Component, XML Layout, Firebase Analytics, Figma</p>
                         </article>
-                        <article class="detail-card">
+                        <article class="detail-card" id="details-codeevoo">
                             <h3>CODEEVOO</h3>
                             <p class="detail-meta">Android Developer &middot; Germany (Remote) &middot; Mar 2021 &ndash; Apr 2022</p>
                             <ul>
@@ -510,7 +512,7 @@
                             </ul>
                             <p class="detail-tech"><strong>Tech Stack:</strong> Kotlin, Retrofit, MVP, MVI, Coroutines, Room, Exoplayer, Lottie, FCM, WordPress API, Koin, XML Layout, Figma, Adobe XD, Docker</p>
                         </article>
-                        <article class="detail-card">
+                        <article class="detail-card" id="details-imatch">
                             <h3>iMATCH</h3>
                             <p class="detail-meta">Co-Founder &amp; Full-Stack Developer &middot; Egypt &middot; Mar 2017 &ndash; Jan 2021</p>
                             <ul>
@@ -520,6 +522,7 @@
                             </ul>
                             <p class="detail-tech"><strong>Tech Stack:</strong> Java, Kotlin, MVP, Retrofit, FCM, One Signal, Glide, XML, Adobe XD, Payment Gateway Integration, SMS Misr, Socket.IO, C#, ASP MVC, Web API, SQL Server, Entity Framework, HTML, CSS, JavaScript, Bootstrap, Google Maps API</p>
                         </article>
+                        <div id="details-more" data-title="Skills, Education &amp; Languages">
                         <article class="detail-card">
                             <h3>Technical Skills</h3>
                             <p class="detail-tech"><strong>Android Native:</strong> Kotlin, Java, MVC, MVP, MVVM, MVI, XML, Jetpack Compose, View/Data Binding, Navigation Component, Retrofit, Ktor Client, Dagger-Hilt, Koin, Room, SQLite, Coroutines, RxJava, Unit Test, Gradle</p>
@@ -536,10 +539,21 @@
                             <p><strong>Arabic:</strong> Native</p>
                             <p><strong>English:</strong> Very Good</p>
                         </article>
-                    </div>
+                        </div>
                 </div>
             </div>
         </section>
+
+        <dialog class="details-dialog" id="details-dialog" aria-labelledby="details-title">
+            <div class="details-head">
+                <span class="details-grabber" aria-hidden="true"></span>
+                <h2 id="details-title"></h2>
+                <button type="button" class="details-close" id="details-close" aria-label="Close details" autofocus>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="details-body" id="details-body"></div>
+        </dialog>
 
         <!-- Contact Section -->
         <section id="contact" class="section section-contact">

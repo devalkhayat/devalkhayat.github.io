@@ -82,9 +82,7 @@ function renderDots(container, count, label, onSelect) {
 const projectCards = [...document.querySelectorAll('.project-card')];
 const filterButtons = document.querySelectorAll('.filter');
 const projectDots = document.getElementById('project-dots');
-const projectsToggle = document.getElementById('projects-toggle');
-const projectsMore = document.getElementById('projects-more');
-const projectState = { filter: 'all', page: 0, showAll: false };
+const projectState = { filter: 'all', page: 0 };
 
 function projectsPerPage() {
     return window.matchMedia('(max-width: 1024px)').matches ? 2 : 3;
@@ -95,11 +93,11 @@ function renderProjects() {
         projectState.filter === 'all' || card.dataset.category === projectState.filter
     );
     const perPage = projectsPerPage();
-    const pageCount = projectState.showAll ? 1 : Math.ceil(matching.length / perPage);
+    const pageCount = Math.ceil(matching.length / perPage);
     projectState.page = Math.min(projectState.page, pageCount - 1);
 
     const start = projectState.page * perPage;
-    const visible = projectState.showAll ? matching : matching.slice(start, start + perPage);
+    const visible = matching.slice(start, start + perPage);
     projectCards.forEach(card => {
         card.hidden = !visible.includes(card);
     });
@@ -109,10 +107,6 @@ function renderProjects() {
         renderProjects();
     });
     highlight(projectState.page);
-
-    projectsToggle.firstElementChild.textContent = projectState.showAll ? 'Show Fewer Projects' : 'View All Projects';
-    projectsToggle.setAttribute('aria-expanded', String(projectState.showAll));
-    projectsMore.hidden = !projectState.showAll;
 }
 
 filterButtons.forEach(button => {
@@ -128,12 +122,6 @@ filterButtons.forEach(button => {
         // On mobile the chip may be partly off-screen in the scrolling row
         button.scrollIntoView({ block: 'nearest', inline: 'nearest' });
     });
-});
-
-projectsToggle.addEventListener('click', () => {
-    projectState.showAll = !projectState.showAll;
-    projectState.page = 0;
-    renderProjects();
 });
 
 renderProjects();
@@ -198,7 +186,7 @@ const revealObserver = new IntersectionObserver(entries => {
     });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.project-grid, .carousel-track, .timeline, .detail-grid, .contact-cards').forEach(group => {
+document.querySelectorAll('.project-grid, .carousel-track, .timeline, .contact-cards').forEach(group => {
     [...group.children].forEach((item, index) => {
         const card = item.matches('.timeline-item') ? item.querySelector('.timeline-card')
             : item.querySelector('.contact-card') || item;
@@ -208,22 +196,93 @@ document.querySelectorAll('.project-grid, .carousel-track, .timeline, .detail-gr
     });
 });
 
-// Full experience panel
-const experienceToggle = document.getElementById('experience-toggle');
-const experienceFull = document.getElementById('experience-full');
+// Experience details popup: copies the matching hidden card into a dialog
+const detailsDialog = document.getElementById('details-dialog');
+const detailsTitle = document.getElementById('details-title');
+const detailsBody = document.getElementById('details-body');
+let detailsTrigger = null;
 
-function setExperienceOpen(open) {
-    experienceFull.hidden = !open;
-    experienceToggle.setAttribute('aria-expanded', String(open));
-    experienceToggle.firstElementChild.textContent = open ? 'Hide Full Experience' : 'View Full Experience';
+function openDetails(sourceId, trigger) {
+    const source = document.getElementById(sourceId);
+    const cards = source.matches('.detail-card') ? [source] : [...source.querySelectorAll('.detail-card')];
+    // A single job uses its company name as the title; a group keeps each card's heading
+    detailsTitle.textContent = source.dataset.title || cards[0].querySelector('h3').textContent;
+    detailsBody.replaceChildren(...cards.map(card => {
+        const section = document.createElement('section');
+        section.className = 'details-section';
+        [...card.children].forEach(child => {
+            if (cards.length > 1 || !child.matches('h3')) {
+                section.append(child.cloneNode(true));
+            }
+        });
+        return section;
+    }));
+
+    detailsTrigger = trigger;
+    // Locking the page hides its scrollbar, so padding takes its place and nothing shifts
+    document.body.style.paddingRight = `${window.innerWidth - document.documentElement.clientWidth}px`;
+    document.documentElement.classList.add('dialog-open');
+    detailsDialog.showModal();
+    detailsBody.scrollTop = 0;
 }
 
-experienceToggle.addEventListener('click', () => setExperienceOpen(experienceFull.hidden));
+document.querySelectorAll('[data-details]').forEach(link => {
+    link.addEventListener('click', () => openDetails(link.dataset.details, link));
+});
 
-// Education moved into the panel, so the old #education link has to open it first
+document.getElementById('details-close').addEventListener('click', () => detailsDialog.close());
+
+// A click that lands on the dialog itself is on the backdrop outside the panel
+detailsDialog.addEventListener('click', event => {
+    if (event.target === detailsDialog) {
+        detailsDialog.close();
+    }
+});
+
+detailsDialog.addEventListener('close', () => {
+    document.documentElement.classList.remove('dialog-open');
+    document.body.style.paddingRight = '';
+    detailsDialog.style.transform = '';
+    if (detailsTrigger) {
+        detailsTrigger.focus({ preventScroll: true });
+        detailsTrigger = null;
+    }
+});
+
+// Bottom sheet: dragging the header down far enough closes it
+const detailsHead = detailsDialog.querySelector('.details-head');
+let dragStart = null;
+
+detailsHead.addEventListener('pointerdown', event => {
+    if (!window.matchMedia('(max-width: 640px)').matches || event.target.closest('button')) return;
+    dragStart = event.clientY;
+    detailsHead.setPointerCapture(event.pointerId);
+    detailsDialog.style.transition = 'none';
+});
+
+detailsHead.addEventListener('pointermove', event => {
+    if (dragStart === null) return;
+    detailsDialog.style.transform = `translateY(${Math.max(0, event.clientY - dragStart)}px)`;
+});
+
+function endDrag(event) {
+    if (dragStart === null) return;
+    const distance = event.clientY - dragStart;
+    dragStart = null;
+    detailsDialog.style.transition = '';
+    if (distance > 80) {
+        detailsDialog.close();
+    } else {
+        detailsDialog.style.transform = '';
+    }
+}
+
+detailsHead.addEventListener('pointerup', endDrag);
+detailsHead.addEventListener('pointercancel', endDrag);
+
+// Education moved into the details popup, so the old #education link opens it
 if (window.location.hash === '#education') {
-    setExperienceOpen(true);
-    document.getElementById('education').scrollIntoView();
+    openDetails('details-more', null);
 }
 
 let resizeTimer;
