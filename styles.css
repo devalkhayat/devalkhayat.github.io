@@ -1557,7 +1557,9 @@ a.contact-card:hover {
         margin-top: 20px;
     }
 
-    .hero-stats li {
+    /* :first-child too, so the desktop rule doesn't strip the first card's left padding and border */
+    .hero-stats li,
+    .hero-stats li:first-child {
         display: flex;
         align-items: center;
         gap: 10px;
@@ -1861,6 +1863,7 @@ a.contact-card:hover {
     }
 
     .hero-title {
+        font-size: min(1.35rem, 4.2vw);
         font-size: min(1.35rem, 4.6cqw);
     }
 
@@ -1903,7 +1906,8 @@ a.contact-card:hover {
         margin-top: 16px;
     }
 
-    .hero-stats li {
+    .hero-stats li,
+    .hero-stats li:first-child {
         gap: 8px;
         padding: 10px;
     }
