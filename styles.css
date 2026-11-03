@@ -307,6 +307,7 @@ button {
 
 .hero-text {
     max-width: min(590px, 48vw);
+    container-type: inline-size;
 }
 
 .hero-avatar {
@@ -332,9 +333,11 @@ button {
     color: var(--heading-color);
 }
 
+/* The title is about 21.1em wide, so cqw keeps it on one line within the text column */
 .hero-title {
     margin-top: 6px;
-    font-size: clamp(1.35rem, 2.6vw, 2rem);
+    font-size: min(2rem, 4.6cqw);
+    white-space: nowrap;
     font-weight: 700;
     line-height: 1.25;
     color: var(--heading-color);
@@ -1858,7 +1861,7 @@ a.contact-card:hover {
     }
 
     .hero-title {
-        font-size: clamp(1.05rem, 5.2vw, 1.35rem);
+        font-size: min(1.35rem, 4.6cqw);
     }
 
     .hero-description {
