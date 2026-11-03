@@ -1867,9 +1867,12 @@ a.contact-card:hover {
         font-size: min(1.35rem, 4.6cqw);
     }
 
+    /* Slightly smaller and tighter so the intro takes fewer lines; pretty avoids a lone last word */
     .hero-description {
-        margin-top: 10px;
-        font-size: 1rem;
+        margin-top: 8px;
+        font-size: 0.9375rem;
+        line-height: 1.55;
+        text-wrap: pretty;
     }
 
     .hero-cta {
