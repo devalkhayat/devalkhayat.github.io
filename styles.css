@@ -1984,6 +1984,76 @@ a.contact-card:hover {
     }
 }
 
+/* Floating WhatsApp button. Below the navbar's layer; the details popup is a modal <dialog> in the
+   top layer, so it covers the button and makes it inert without any extra z-index */
+.whatsapp-float {
+    position: fixed;
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #25d366;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(10, 18, 64, 0.22);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-float:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 3px;
+}
+
+@media (min-width: 641px) {
+    .whatsapp-float {
+        right: max(24px, env(safe-area-inset-right));
+        bottom: max(24px, env(safe-area-inset-bottom));
+        width: 56px;
+        height: 56px;
+    }
+
+    .whatsapp-float svg {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* Tooltip only where there's a pointer to hover with; keyboard focus shows it too */
+@media (hover: hover) {
+    .whatsapp-float:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 10px 24px rgba(10, 18, 64, 0.28);
+    }
+
+    .whatsapp-float::before {
+        content: attr(data-tooltip);
+        position: absolute;
+        right: calc(100% + 12px);
+        top: 50%;
+        padding: 6px 10px;
+        border-radius: 8px;
+        background: var(--heading-color);
+        color: #fff;
+        font-size: 0.8rem;
+        font-weight: 500;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(4px, -50%);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .whatsapp-float:hover::before,
+    .whatsapp-float:focus-visible::before {
+        opacity: 1;
+        transform: translate(0, -50%);
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     html,
     .section-head-projects .filters {
@@ -2003,6 +2073,7 @@ a.contact-card:hover {
     .skill-card:hover,
     .timeline-card:hover,
     .contact-card:hover,
+    .whatsapp-float:hover,
     .project-card:hover .project-media img,
     .skill-card:hover img,
     .skill-card:hover svg {
