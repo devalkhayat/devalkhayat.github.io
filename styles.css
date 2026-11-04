@@ -333,10 +333,10 @@ button {
     color: var(--heading-color);
 }
 
-/* The title is about 21.1em wide, so cqw keeps it on one line within the text column */
+/* The title is about 25.1em wide, so cqw keeps it on one line within the text column */
 .hero-title {
     margin-top: 6px;
-    font-size: min(2rem, 4.6cqw);
+    font-size: min(2rem, 3.9cqw);
     white-space: nowrap;
     font-weight: 700;
     line-height: 1.25;
@@ -1863,8 +1863,8 @@ a.contact-card:hover {
     }
 
     .hero-title {
-        font-size: min(1.35rem, 4.2vw);
-        font-size: min(1.35rem, 4.6cqw);
+        font-size: min(1.35rem, 3.55vw);
+        font-size: min(1.35rem, 3.9cqw);
     }
 
     /* Slightly smaller and tighter so the intro takes fewer lines; pretty avoids a lone last word */
