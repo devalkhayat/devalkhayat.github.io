@@ -560,7 +560,7 @@ button {
 
 /* Projects scroll sideways like the other carousels; filtered-out cards are hidden */
 .project-grid {
-    --projects-visible: 3;
+    --projects-visible: 2;
     --projects-gap: 24px;
     display: flex;
     flex: 1;
@@ -616,18 +616,28 @@ button {
 /* Title with the role beside it; the role drops below when the title is long */
 .project-title {
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 2px 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
 }
 
 .role-badge {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--primary-soft);
     color: var(--primary-color);
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.role-label {
+    font-weight: 500;
+    opacity: 0.75;
 }
 
 .project-body {
@@ -1392,10 +1402,6 @@ a.contact-card:hover {
 
 /* Tablet */
 @media (max-width: 1024px) {
-    .project-grid {
-        --projects-visible: 2;
-    }
-
     .carousel-track {
         --skills-visible: 4;
     }
