@@ -613,10 +613,16 @@ button {
     font-weight: 700;
 }
 
-/* A quiet label above the title, so the screenshot stays uncovered */
+/* Title with the role beside it; the role drops below when the title is long */
+.project-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2px 12px;
+}
+
 .role-badge {
-    display: block;
-    margin-bottom: 4px;
     color: var(--primary-color);
     font-size: 0.7rem;
     font-weight: 600;
