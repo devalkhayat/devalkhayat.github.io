@@ -613,16 +613,15 @@ button {
     font-weight: 700;
 }
 
+/* A quiet label above the title, so the screenshot stays uncovered */
 .role-badge {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    padding: 4px 12px;
-    border-radius: 999px;
-    background: var(--primary-soft);
-    color: var(--primary-dark);
-    font-size: 0.75rem;
+    display: block;
+    margin-bottom: 4px;
+    color: var(--primary-color);
+    font-size: 0.7rem;
     font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 .project-body {
