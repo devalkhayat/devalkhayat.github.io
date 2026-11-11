@@ -700,7 +700,9 @@ button {
     font-size: 0.875rem;
 }
 
+/* margin-left keeps the badge on the right when a card has no link */
 .industry-badge {
+    margin-left: auto;
     padding: 3px 12px;
     border-radius: 999px;
     background: var(--primary-soft);
@@ -718,6 +720,11 @@ button {
 [data-category="e-commerce"] .industry-badge {
     background: #e6f7ee;
     color: #116b3a;
+}
+
+[data-category="food"] .industry-badge {
+    background: #fff1e6;
+    color: #a84a00;
 }
 
 [data-category="booking"] .industry-badge {
