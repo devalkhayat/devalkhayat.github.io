@@ -710,12 +710,7 @@ button {
     text-align: right;
 }
 
-[data-category="food"] .industry-badge {
-    background: #fff1e6;
-    color: #a84a00;
-}
-
-[data-category="entertainment"] .industry-badge {
+[data-category="news"] .industry-badge {
     background: #f1ebff;
     color: #5b34b5;
 }
@@ -723,6 +718,11 @@ button {
 [data-category="e-commerce"] .industry-badge {
     background: #e6f7ee;
     color: #116b3a;
+}
+
+[data-category="booking"] .industry-badge {
+    background: #e3f6f5;
+    color: #0b6b66;
 }
 
 [data-category="other"] .industry-badge,
