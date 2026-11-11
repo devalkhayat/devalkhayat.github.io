@@ -732,7 +732,7 @@ button {
     color: #0b6b66;
 }
 
-[data-category="other"] .industry-badge,
+[data-category="demos"] .industry-badge,
 [data-category="business"] .industry-badge {
     background: #eef1f6;
     color: #3d4966;
